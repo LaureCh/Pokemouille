@@ -1,0 +1,18 @@
+<h4>FIGHT !</h4>
+<canvas id="fight" width="480" height="320">
+  <div style="display:none;">
+    <img id="pokemon1" src="assets/img/65.png" width="96" height="96">
+    <img id="pokemon2" src="assets/img/4.png" width="96" height="96">
+  </div>
+</canvas>
+<script type="text/javascript" src="app/ressources/pokemon.js"></script>
+<script type="text/javascript" src="app/app.js"></script>
+
+<div class="row"><p>Liste des attaques :</p></div>
+<div class="row">
+  <div class="col-4">
+    <button type="button" class="btn btn-primary btn-block" onclick="pokemon2.takeDamage(20);pokemon1.attacking=true;">Charge</button>
+    <button type="button" class="btn btn-primary btn-block" onclick="pokemon1.takeDamage(20);pokemon2.attacking=true;">Eclair</button>
+    <button type="button" class="btn btn-primary btn-block">Morsure</button>
+  </div>
+</div>
