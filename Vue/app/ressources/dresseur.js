@@ -1,6 +1,6 @@
 class Dresseur {
-  constructor(name, pokemons) {
+  constructor(name, team) {
     this.name = name;
-    this.pokemons = pokemons;
+    this.team = team;
   }
 }

@@ -12,7 +12,7 @@
     $('#form-pseudo').submit(function(e){
       e.preventDefault();
       $.post(
-        '../Controller/Api/Pseudo.php',
+        '../Controller/Pseudo.php',
         {
           name : $("#name").val()
         },
@@ -25,6 +25,7 @@
       dresseur = result.dresseur;
       opponent = result.opponent;
       pokemon1.attacking=true;
+      alert(dresseur.username);
     }
   </script>
 </div>

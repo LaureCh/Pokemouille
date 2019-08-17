@@ -42,11 +42,17 @@ class Dresseur
     }
 
     /**
-     * @param Pokemon $pokemon
      */
-    public function setPokemons(Pokemon $pokemon): void
+    public function setPokemons(array $pokemons): void
     {
-        $this->pokemons[] = $pokemon;
+        $this->pokemons = $pokemons;
+    }
+
+    /**
+     */
+    public function addPokemon(Pokemon $pokemon): void
+    {
+        $this->pokemon[] = $pokemon;
     }
 
     /**

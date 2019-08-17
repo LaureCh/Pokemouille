@@ -7,7 +7,7 @@ class DBPower
 
     public function __construct()
     {
-        $this->config = parse_ini_file('./config.ini', true)['DB'];
+        $this->config = parse_ini_file('../config.ini', true)['DB'];
         $this->bdd = $this->connect();
     }
 
@@ -25,11 +25,22 @@ class DBPower
 
     }
 
+    public function getPokemons(array $pokemonsIds)
+    {
+      $pokemonsIds = implode(',', array_values($pokemonsIds));
+
+      $sql = "SELECT * FROM pokemon WHERE id_pokemon IN (".$pokemonsIds.")";
+
+      $response = $this->bdd->query($sql);
+
+      return ($response->fetchAll());
+    }
+
     public function flushAttack(Attack $attack)
     {
         try{
             $sql = "INSERT INTO Attack(damage, name, description, accuracy)
-                    VALUES 
+                    VALUES
                     ('".$attack->getDamages()."','".$attack->getName()."','".$attack->getDescription()."','".$attack->getAccuracy()."')";
 
             $this->bdd->query($sql);
@@ -46,7 +57,7 @@ class DBPower
     public function flushPokemon(Pokemon $pokemon)
     {
         $sql = "INSERT INTO Pokemon(french_name, english_name,life_max,back_image_url,front_image_url, evolution)
-                    VALUES 
+                    VALUES
                     ('".$pokemon->getFrenchName()."','".$pokemon->getEnglishName()."','".$pokemon->getLifeMax()."','".$pokemon->getBackImageUrl()."','".$pokemon->getFrontImageUrl()."','".$pokemon->getEvolution()."')";
 
         $this->bdd->query($sql);
@@ -68,6 +79,14 @@ class DBPower
             echo "Error:".$e->getMessage()." PokemonId:".$pokemonId." AttackId:".$attackId;
         }
     }
+
+    public function checkDresseur($username)
+    {
+      $sql = "SELECT * FROM dresseur d, pokemon_fille p WHERE d.id_dresseur = p.fk_id_dresseur AND d.username ='".$username."'";
+      $response = $this->bdd->query($sql);
+
+      return ($response->fetchAll());
+
+    }
 }
 ?>
-
