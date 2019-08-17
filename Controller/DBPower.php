@@ -80,9 +80,24 @@ class DBPower
         }
     }
 
-    public function checkDresseur($username)
+    public function getPokemonsDresseur($username)
     {
-      $sql = "SELECT * FROM dresseur d, pokemon_fille p WHERE d.id_dresseur = p.fk_id_dresseur AND d.username ='".$username."'";
+      $sql = "SELECT p.*, pf.xp FROM dresseur d, pokemon_fille pf, pokemon p
+              WHERE d.id_dresseur = pf.fk_id_dresseur
+              AND pf.fk_id_pokemon = p.id_pokemon
+              AND d.username ='".$username."'";
+      $response = $this->bdd->query($sql);
+
+      return ($response->fetchAll());
+
+    }
+
+    public function getAttacksFromPokemons($pokemonsIds)
+    {
+      $sql = "SELECT p.*, pf.xp FROM dresseur d, pokemon_fille pf, pokemon p
+              WHERE d.id_dresseur = pf.fk_id_dresseur
+              AND pf.fk_id_pokemon = p.id_pokemon
+              AND d.username ='".$pokemonsIds."'";
       $response = $this->bdd->query($sql);
 
       return ($response->fetchAll());

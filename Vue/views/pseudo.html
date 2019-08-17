@@ -1,4 +1,4 @@
-<div style="">
+<div id="view-pseudo" style="display:inline;">
   <h4>Brave dresseur,</h4>
   <form action="" onsubmit="submit" id="form-pseudo" method="post">
     <div class="form-group">
@@ -22,10 +22,22 @@
     });
 
     function api_result_pseudo(result){
+      // Handling result
       dresseur = result.dresseur;
+      dresseur.isNewPlayer = result.isNewPlayer;
       opponent = result.opponent;
+
+      // Prepares next page
+      $('#displayDresseurName').html(dresseur.username);
+      if(dresseur.isNewPlayer){
+        $('#displayTextNewPlayer1').html("rencontrer");
+        $('#displayTextNewPlayer2').html("Choisis");
+      }
+
+      // Switch page
+      $('#view-pseudo').hide();
+      $('#view-selectPokemon').show();
       pokemon1.attacking=true;
-      alert(dresseur.username);
     }
   </script>
 </div>
