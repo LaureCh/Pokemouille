@@ -14,8 +14,9 @@
     <div class="container">
       <h1>Pokemouille</h1>
 
-<!-- INCLURE ICI LES PAGES -->
-
+        <?php
+            include("views/pseudo.html");
+        ?>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -1,6 +1,6 @@
 <?php
 include ('..\Model\Pokemon.php');
-include('..\Vue\login.html');
+include('..\Vue\index.php');
 include('..\Model\Dresseur.php');
 
 //if (isset($_POST['username'])) {
