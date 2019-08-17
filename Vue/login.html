@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+</head>
+
+    <body>
+
+    <form action="../Controller/Main.php" onsubmit="submit" id="test">
+        <input type="text" name="name" id="name"/>
+        <input type="submit" value="submit" >
+    </form>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+<script type="text/javascript">
+    console.log('<?php echo json_encode($pokemoun); ?>');
+    var js_variable = '<?php echo $pokemoun; ?>';
+    console.log(js_variable);
+</script>
+
+<script>
+
+$('#test').submit(function(e){ // attrape le formulaire avec l'id correspondant
+        e.preventDefault(); // Empêche de soumettre le formulaire
+        $.ajax({
+            url: '../Controller/Main.php', //donne l'url à laquelle renvoyer la donnée
+            type: 'POST', //type
+            data: // data à envoyer : la clé, puis la valeur que l'on va récupérer via son id dans le formulaire
+                {
+                    name: $('#name').val()
+                },
+        });
+    });
+</script>
+</html
+>
