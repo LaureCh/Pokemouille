@@ -44,4 +44,28 @@
       </div>
     </div>
   </form>
+
+  <script>
+    $('#form-select').submit(function(e){
+      e.preventDefault();
+      $.post(
+        '../Controller/SelectPokemon.php',
+        {
+          id : [$("#pokemon1").val(), $("#pokemon2").val(), $("#pokemon3").val()]
+        },
+        api_result_select,
+        'JSON'
+      );
+    });
+
+    function api_result_select(result){
+      // Handling result
+      // TODO
+      //dresseur = result.dresseur;
+
+      // Switch page
+      $('#view-selectPokemon').hide();
+      $('#view-fight').show();
+    }
+  </script>
 </div>

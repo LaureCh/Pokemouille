@@ -92,6 +92,7 @@ class DBPower
 
     }
 
+    //TODO
     public function getAttacksFromPokemons($pokemonsIds)
     {
       $sql = "SELECT p.*, pf.xp FROM dresseur d, pokemon_fille pf, pokemon p
