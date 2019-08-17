@@ -3,6 +3,7 @@ if(!empty($_POST['attack'])){
   $attack = $_POST['attack'];
 
   // Search attack on DB
+
   $return[] = array();
   switch ($attack) {
     case 1:

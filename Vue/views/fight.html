@@ -1,36 +1,38 @@
-<h4>FIGHT !</h4>
-<canvas id="fight" width="480" height="320">
-  <div style="display:none;">
-    <img id="pokemon1" src="../Vue/assets/img/65.png" width="96" height="96">
-    <img id="pokemon2" src="../Vue/assets/img/4.png" width="96" height="96">
-  </div>
-</canvas>
-<script type="text/javascript" src="../Vue/app/ressources/pokemon.js"></script>
-<script type="text/javascript" src="../Vue/app/app.js"></script>
+<div style="display:none;">
+  <h4>FIGHT !</h4>
+  <canvas id="fight" width="480" height="320">
+    <div style="display:none;">
+      <img id="pokemon1" src="../Vue/assets/img/65.png" width="96" height="96">
+      <img id="pokemon2" src="../Vue/assets/img/4.png" width="96" height="96">
+    </div>
+  </canvas>
+  <script type="text/javascript" src="../Vue/app/ressources/pokemon.js"></script>
+  <script type="text/javascript" src="../Vue/app/app.js"></script>
 
-<div class="row"><p>Liste des attaques :</p></div>
-<div class="row">
-  <div class="col-4">
-    <button  type="button" class="btn btn-primary btn-block" onclick="attack(1)">Charge</button>
-    <button type="button" class="btn btn-primary btn-block" onclick="pokemon1.takeDamage(20);pokemon2.attacking=true;">Eclair</button>
-    <button type="button" class="btn btn-primary btn-block">Morsure</button>
+  <div class="row"><p>Liste des attaques :</p></div>
+  <div class="row">
+    <div class="col-4">
+      <button  type="button" class="btn btn-primary btn-block" onclick="attack(1)">Charge</button>
+      <button type="button" class="btn btn-primary btn-block" onclick="pokemon1.takeDamage(20);pokemon2.attacking=true;">Eclair</button>
+      <button type="button" class="btn btn-primary btn-block">Morsure</button>
+    </div>
   </div>
+
+  <script>
+    function attack(id){
+      $.post(
+          '../Controller/Fight.php',
+          {
+              attack : id
+          },
+          result_attack,
+          'JSON'
+      );
+    }
+
+    function result_attack(result){
+      pokemon2.takeDamage(result.damage);
+      pokemon1.attacking=true;
+    }
+  </script>
 </div>
-
-<script>
-  function attack(id){
-    $.post(
-        '../Controller/Fight.php',
-        {
-            attack : id
-        },
-        result_attack,
-        'JSON'
-    );
-  }
-
-  function result_attack(result){
-    pokemon2.takeDamage(result.damage);
-    pokemon1.attacking=true;
-  }
-</script>

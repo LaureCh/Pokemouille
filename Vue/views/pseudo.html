@@ -1,8 +1,30 @@
-<h4>Brave dresseur,</h4>
-<form action="" onsubmit="submit" id="pseudo" method="post">
-  <div class="form-group">
-    <label for="name">saisissez votre nom :</label>
-    <input type="text" class="form-control" name="name" id="name" placeholder="Nom">
-  </div>
-  <button type="submit" name="form-pseudo" class="btn btn-primary">Let's go !</button>
-</form>
+<div style="">
+  <h4>Brave dresseur,</h4>
+  <form action="" onsubmit="submit" id="form-pseudo" method="post">
+    <div class="form-group">
+      <label for="name">saisissez votre nom :</label>
+      <input type="text" class="form-control" name="name" id="name" placeholder="Nom">
+    </div>
+    <button type="submit" name="form-pseudo" class="btn btn-primary">Let's go !</button>
+  </form>
+
+  <script>
+    $('#form-pseudo').submit(function(e){
+      e.preventDefault();
+      $.post(
+        '../Controller/Api/Pseudo.php',
+        {
+          name : $("#name").val()
+        },
+        api_result_pseudo,
+        'JSON'
+      );
+    });
+
+    function api_result_pseudo(result){
+      dresseur = result.dresseur;
+      opponent = result.opponent;
+      pokemon1.attacking=true;
+    }
+  </script>
+</div>
