@@ -1,6 +1,8 @@
 var canvas = document.getElementById("fight");
 var ctx = canvas.getContext("2d");
 
+var isBattleStarted = false;
+
 // init data
 var pokemon1 = new Pokemon(25, "Pikachu", 400, 25);
 var pokemon2 = new Pokemon(4, "Salamèche", 300, 4);
@@ -75,15 +77,17 @@ function attacking(opponent = false){
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawPokemonInfo(pokemon1);
-  drawPokemonInfo(pokemon2, true);
-  drawPokemon();
+  if(isBattleStarted){
+    drawPokemonInfo(pokemon1);
+    drawPokemonInfo(pokemon2, true);
+      drawPokemon();
 
-  if(pokemon1.attacking){
-    attacking();
-  }
-  if(pokemon2.attacking){
-    attacking(true);
+    if(pokemon1.attacking){
+      attacking();
+    }
+    if(pokemon2.attacking){
+      attacking(true);
+    }
   }
 
   requestAnimationFrame(draw);
