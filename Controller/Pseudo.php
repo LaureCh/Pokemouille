@@ -1,7 +1,9 @@
 <?php
+session_start();
 include('../Model/Dresseur.php');
 include('../Model/Pokemon.php');
 include('../Model/PokemonFille.php');
+include('../Model/PokemonFilleInGame.php');
 include('DBPower.php');
 
 if (isset($_POST['name'])) {
@@ -17,9 +19,12 @@ if (isset($_POST['name'])) {
       $_SESSION['step'] = 1;
     }else{
       foreach ($response as $value) {
-        $pokemon = new PokemonFille();
+        $pokemon = new PokemonFilleInGame();
         $pokemon->setIdPokemon((int)$value["id_pokemon"]);
         $pokemon->setXp((int)$value["xp"]);
+        $pokemon->setName($_SESSION['pokemonList'][$value['id_pokemon']]['french_name']);
+        $pokemon->setHp($_SESSION['pokemonList'][$value['id_pokemon']]['life_max']);
+        $pokemon->setImg($_SESSION['pokemonList'][$value['id_pokemon']]['back_image_url']);
         $pokemons[]=(array)$pokemon;
       }
 
@@ -42,8 +47,11 @@ if (isset($_POST['name'])) {
 
   $pokemonsForOpponent = $db->getPokemonsByIds($pokemonsIds);
   foreach ($pokemonsForOpponent as $value) {
-    $pokemon = new PokemonFille();
+    $pokemon = new PokemonFilleInGame();
     $pokemon->setIdPokemon((int)$value["id_pokemon"]);
+    $pokemon->setName($_SESSION['pokemonList'][$value['id_pokemon']]['french_name']);
+    $pokemon->setHp($_SESSION['pokemonList'][$value['id_pokemon']]['life_max']);
+    $pokemon->setImg($_SESSION['pokemonList'][$value['id_pokemon']]['front_image_url']);
     $pokemonsOpponent[]=(array)$pokemon;
   }
   $opponent->setPokemons($pokemonsOpponent);

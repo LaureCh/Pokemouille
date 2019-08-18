@@ -5,7 +5,6 @@ class PokemonFille
     public $dresseur;
     public $pokemon;
     public $xp;
-    public $life;
     public $idPokemon;
 
     public function __construct()
@@ -61,23 +60,6 @@ class PokemonFille
     public function setXp(int $xp)
     {
         $this->xp = $xp;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLife() : int
-    {
-        return $this->life;
-    }
-
-    /**
-     * @param mixed $life
-     * @return PokemonFille
-     */
-    public function setLife($life)
-    {
-        $this->life = $life;
     }
 
     /**

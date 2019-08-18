@@ -2,8 +2,8 @@
   <h4>FIGHT !</h4>
   <canvas id="fight" width="480" height="320">
     <div style="display:none;">
-      <img id="pokemon1" src="../Vue/assets/img/65.png" width="96" height="96">
-      <img id="pokemon2" src="../Vue/assets/img/4.png" width="96" height="96">
+      <img id="img-pokemon-dresseur" src="../Vue/assets/img/65.png" width="96" height="96">
+      <img id="img-pokemon-opponent" src="../Vue/assets/img/4.png" width="96" height="96">
     </div>
   </canvas>
   <script type="text/javascript" src="../Vue/app/ressources/pokemon.js"></script>
@@ -31,8 +31,13 @@
     }
 
     function result_attack(result){
-      pokemon2.takeDamage(result.damage);
-      pokemon1.attacking=true;
+      // Mock
+      opponent.pokemon[opponent.pokemonActif].takeDamage(result.damage);
+      dresseur.pokemon[dresseur.pokemonActif].attacking=true;
+      setTimeout(function () {
+        dresseur.pokemon[dresseur.pokemonActif].takeDamage(result.damage);
+        opponent.pokemon[opponent.pokemonActif].attacking=true;
+      }, 500);
     }
   </script>
 </div>

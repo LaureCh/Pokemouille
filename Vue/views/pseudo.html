@@ -22,12 +22,20 @@
 
     function api_result_pseudo(result){
       // Handling result
-      dresseur = result.dresseur;
+      dresseur.name = result.dresseur.username;
+      $.each(result.dresseur.Dresseurpokemons, function( index, p ) {
+        dresseur.pokemon.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp));
+      });
+
+      result.dresseur.Dresseurpokemons;
       dresseur.isNewPlayer = result.isNewPlayer;
-      opponent = result.opponent;
+      opponent.name = result.opponent.username;
+      $.each(result.opponent.Dresseurpokemons, function( index, p ) {
+        opponent.pokemon.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp));
+      });
 
       // Prepares next page
-      $('#displayDresseurName').html(dresseur.username);
+      $('#displayDresseurName').html(dresseur.name);
       if(dresseur.isNewPlayer){
         $('#displayTextNewPlayer1').html("rencontrer");
         $('#displayTextNewPlayer2').html("Choisis");

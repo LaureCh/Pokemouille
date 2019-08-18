@@ -1,6 +1,6 @@
 <?php
   $pokemonHtmlSelect = "";
-  foreach ($pokemonList as $pokemon){
+  foreach ($_SESSION['pokemonList'] as $pokemon){
     $pokemonHtmlSelect .= '<option value="'.$pokemon["id_pokemon"].'">'.$pokemon["french_name"].'</option>';
   }
 ?>

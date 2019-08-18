@@ -1,11 +1,24 @@
 var canvas = document.getElementById("fight");
 var ctx = canvas.getContext("2d");
 
-var isBattleStarted = false;
-
 // init data
-var pokemon1 = new Pokemon(25, "Pikachu", 400, 25);
-var pokemon2 = new Pokemon(4, "Salamèche", 300, 4);
+var dresseur = {};
+var opponent = {};
+dresseur.pokemon = [
+  new Pokemon(1, "Pikachu", 200, 25),
+  new Pokemon(6, "Salamèche", 240, 7),
+  new Pokemon(5, "Tortank", 400, 6),
+];
+opponent.pokemon = [
+  new Pokemon(2, "Raichu", 320, 25),
+  new Pokemon(13, "Caninos", 280, 7),
+  new Pokemon(8, "Dracaufeu", 400, 6),
+];
+
+// Battle info
+var isBattleStarted = false;
+dresseur.pokemonActif = 0;
+opponent.pokemonActif = 0;
 
 // Bar health
 var barHealtwidth = 100;
@@ -21,11 +34,11 @@ var pokemonImgXOpponentAttacking = pokemonImgXOpponent;
 
 var move = 0;
 
-function drawPokemonInfo(pokemon, opponent = false) {
+function drawPokemonInfo(pokemon, isOpponent = false) {
   // Position
   var barPositionX = barHealtOffset;
   var barPositionY = barHealtOffset+20;
-  if(opponent){
+  if(isOpponent){
     var barPositionX = canvas.width-barHealtOffset-barHealtwidth;
   }
 
@@ -50,26 +63,26 @@ function drawPokemonInfo(pokemon, opponent = false) {
 
 function drawPokemon(){
   // Draw
-  ctx.drawImage(document.getElementById('pokemon1'), pokemonImgXAttacking, pokemonImgY);
-  ctx.drawImage(document.getElementById('pokemon2'), pokemonImgXOpponentAttacking, pokemonImgY);
+  ctx.drawImage(document.getElementById('img-pokemon-dresseur'), pokemonImgXAttacking, pokemonImgY);
+  ctx.drawImage(document.getElementById('img-pokemon-opponent'), pokemonImgXOpponentAttacking, pokemonImgY);
 }
 
 
-function attacking(opponent = false){
+function attacking(isOpponent = false){
   if(move<20){
-    if(!opponent){
+    if(!isOpponent){
       pokemonImgXAttacking = pokemonImgXAttacking + move;
     } else {
       pokemonImgXOpponentAttacking = pokemonImgXOpponentAttacking - move;
     }
     move++;
   }else{
-    if(!opponent){
+    if(!isOpponent){
       pokemonImgXAttacking = pokemonImgX;
-      pokemon1.attacking = false;
+      dresseur.pokemon[dresseur.pokemonActif].attacking = false;
     } else {
       pokemonImgXOpponentAttacking = pokemonImgXOpponent;
-      pokemon2.attacking = false;
+      opponent.pokemon[opponent.pokemonActif].attacking = false;
     }
     move = 0;
   }
@@ -78,14 +91,14 @@ function attacking(opponent = false){
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   if(isBattleStarted){
-    drawPokemonInfo(pokemon1);
-    drawPokemonInfo(pokemon2, true);
-      drawPokemon();
+    drawPokemonInfo(dresseur.pokemon[dresseur.pokemonActif]);
+    drawPokemonInfo(opponent.pokemon[opponent.pokemonActif], true);
+    drawPokemon();
 
-    if(pokemon1.attacking){
+    if(dresseur.pokemon[dresseur.pokemonActif].attacking){
       attacking();
     }
-    if(pokemon2.attacking){
+    if(opponent.pokemon[opponent.pokemonActif].attacking){
       attacking(true);
     }
   }
