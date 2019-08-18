@@ -25,7 +25,16 @@ class DBPower
 
     }
 
-    public function getPokemons(array $pokemonsIds)
+    public function getPokemons()
+    {
+      $sql = "SELECT * FROM pokemon ORDER BY id_pokemon asc";
+
+      $response = $this->bdd->query($sql);
+
+      return ($response->fetchAll());
+    }
+
+    public function getPokemonsByIds(array $pokemonsIds)
     {
       $pokemonsIds = implode(',', array_values($pokemonsIds));
 
@@ -82,7 +91,7 @@ class DBPower
 
     public function getPokemonsDresseur($username)
     {
-      $sql = "SELECT p.*, pf.xp FROM dresseur d, pokemon_fille pf, pokemon p
+      $sql = "SELECT p.id_pokemon, pf.xp FROM dresseur d, pokemon_fille pf, pokemon p
               WHERE d.id_dresseur = pf.fk_id_dresseur
               AND pf.fk_id_pokemon = p.id_pokemon
               AND d.username ='".$username."'";
@@ -95,7 +104,7 @@ class DBPower
     //TODO
     public function getAttacksFromPokemons($pokemonsIds)
     {
-      $sql = "SELECT p.*, pf.xp FROM dresseur d, pokemon_fille pf, pokemon p
+      $sql = "SELECT p.id_pokemon, pf.xp FROM dresseur d, pokemon_fille pf, pokemon p
               WHERE d.id_dresseur = pf.fk_id_dresseur
               AND pf.fk_id_pokemon = p.id_pokemon
               AND d.username ='".$pokemonsIds."'";

@@ -1,6 +1,7 @@
 <?php
 include('../Model/Dresseur.php');
 include('../Model/Pokemon.php');
+include('../Model/PokemonFille.php');
 include('DBPower.php');
 
 if (isset($_POST['name'])) {
@@ -16,7 +17,9 @@ if (isset($_POST['name'])) {
       $_SESSION['step'] = 1;
     }else{
       foreach ($response as $value) {
-        $pokemon = new Pokemon($value["english_name"]);
+        $pokemon = new PokemonFille();
+        $pokemon->setIdPokemon((int)$value["id_pokemon"]);
+        $pokemon->setXp((int)$value["xp"]);
         $pokemons[]=(array)$pokemon;
       }
 
@@ -37,9 +40,10 @@ if (isset($_POST['name'])) {
   $pokemonIds = parse_ini_file('../config.ini', true)['POKEMONS']['pokemons'];
   $pokemonsIds = array_rand($pokemonIds, 3);
 
-  $pokemonsForOpponent = $db->getPokemons($pokemonsIds);
+  $pokemonsForOpponent = $db->getPokemonsByIds($pokemonsIds);
   foreach ($pokemonsForOpponent as $value) {
-    $pokemon = new Pokemon($value["english_name"]);
+    $pokemon = new PokemonFille();
+    $pokemon->setIdPokemon((int)$value["id_pokemon"]);
     $pokemonsOpponent[]=(array)$pokemon;
   }
   $opponent->setPokemons($pokemonsOpponent);

@@ -2,6 +2,11 @@
 $step=0;
 include ('../Model/Pokemon.php');
 include('../Model/Dresseur.php');
+include('DBPower.php');
+
+$db = new DBPower();
+$response = $db->getPokemons();
+$pokemonList = $response;
 
 if(isset($_POST['form-clear'])) {
   $step = 0;

@@ -5,6 +5,7 @@
  */
 class Pokemon
 {
+    private $idPokemon;
     private $frenchName;
     private $englishName;
     private $evolution;
@@ -24,6 +25,23 @@ class Pokemon
         $this->attacks= [];
         $this->lifeMax = rand(50, 100);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdPokemon()
+    {
+        return $this->idPokemon;
+    }
+
+    /**
+     * @param mixed $idPokemon
+     */
+    public function setIdPokemon($idPokemon)
+    {
+        $this->idPokemon = $idPokemon;
+    }
+
 
     /**
      * @return mixed

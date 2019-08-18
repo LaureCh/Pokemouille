@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -21,18 +21,18 @@
   <body>
     <div class="container">
       <h1>Pokemouille</h1>
-        <?php
-            include("views/pseudo.html");
-            include("views/selectPokemon.html");
-            include("views/fight.html");
-        ?>
-    </div>
-    <div>
-      <form action="" onsubmit="submit" method="post">
-        <input type="submit" name="form-clear" value="clear POST" />
-      </from>
+      <?php
+          include("views/pseudo.html");
+          include("views/selectPokemon.html");
+          include("views/fight.html");
+      ?>
+      <div class="row">
+        <form action="" onsubmit="submit" method="post">
+          <button type="submit" class="btn btn-warning" name="form-clear">Retour à l'accueil</button>
+        </from>
+      </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    </body>
+  </body>
 </html>

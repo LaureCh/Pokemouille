@@ -1,26 +1,21 @@
 <?php
-include('Dresseur.php');
-include('Pokemon.php');
 
 class PokemonFille
 {
-    public Dresseur $dresseur;
-    public Pokemon $pokemon;
-    public int $xp;
-    public int $life;
+    public $dresseur;
+    public $pokemon;
+    public $xp;
+    public $life;
+    public $idPokemon;
 
-    public function __construct(Dresseur $dresseur, Pokemon $pokemon)
+    public function __construct()
     {
-        $this->dresseur = $dresseur;
-        $this->pokemon = $pokemon;
-        $this->xp = 0;
-        $this->life = $pokemon->getLifeMax();
     }
 
     /**
      * @return Dresseur
      */
-    public function getDresseur(): Dresseur
+    public function getDresseur()
     {
         return $this->dresseur;
     }
@@ -29,16 +24,15 @@ class PokemonFille
      * @param Dresseur $dresseur
      * @return PokemonFille
      */
-    public function setDresseur(Dresseur $dresseur): PokemonFille
+    public function setDresseur(Dresseur $dresseur)
     {
         $this->dresseur = $dresseur;
-        return $this;
     }
 
     /**
      * @return Pokemon
      */
-    public function getPokemon(): Pokemon
+    public function getPokemon()
     {
         return $this->pokemon;
     }
@@ -47,10 +41,9 @@ class PokemonFille
      * @param Pokemon $pokemon
      * @return PokemonFille
      */
-    public function setPokemon(Pokemon $pokemon): PokemonFille
+    public function setPokemon(Pokemon $pokemon)
     {
         $this->pokemon = $pokemon;
-        return $this;
     }
 
     /**
@@ -65,10 +58,9 @@ class PokemonFille
      * @param int $xp
      * @return PokemonFille
      */
-    public function setXp(int $xp): PokemonFille
+    public function setXp(int $xp)
     {
         $this->xp = $xp;
-        return $this;
     }
 
     /**
@@ -83,10 +75,25 @@ class PokemonFille
      * @param mixed $life
      * @return PokemonFille
      */
-    public function setLife($life) :PokemonFille
+    public function setLife($life)
     {
         $this->life = $life;
-        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdPokemon() : int
+    {
+        return $this->idPokemon;
+    }
+
+    /**
+     * @param mixed $idPokemon
+     */
+    public function setIdPokemon($idPokemon)
+    {
+        $this->idPokemon = $idPokemon;
     }
 
 

@@ -7,7 +7,6 @@
     </div>
     <button type="submit" name="form-pseudo" class="btn btn-primary">Let's go !</button>
   </form>
-
   <script>
     $('#form-pseudo').submit(function(e){
       e.preventDefault();
@@ -32,6 +31,14 @@
       if(dresseur.isNewPlayer){
         $('#displayTextNewPlayer1').html("rencontrer");
         $('#displayTextNewPlayer2').html("Choisis");
+      }else{
+        // Disables and sets <select>
+        $('#select_pokemon1').attr('disabled', 'disabled');
+        $('#select_pokemon2').attr('disabled', 'disabled');
+        $('#select_pokemon3').attr('disabled', 'disabled');
+        $('#select_pokemon1').val(6/*dresseur.Dresseurpokemons[0]*/).attr('selected', 'selected');
+        $('#select_pokemon2').val(2/*dresseur.Dresseurpokemons[0].*/).attr('selected', 'selected');
+        $('#select_pokemon3').val(5).attr('selected', 'selected');
       }
 
       // Switch page
