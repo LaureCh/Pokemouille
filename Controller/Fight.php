@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$mockAttacks = [
+CONST MOCK_ATTACKS = [
   1 => [
     'damage' => 10,
     'accuracy' => 100
@@ -45,27 +45,22 @@ $mockAttacks = [
 ];
 
 if(!empty($_POST['attack'])){
-  $attackId = (int) $_POST['attack'];
 
-  // Prepares dresseur's attack
-  $isDresseurAttackMissed = false;
-  $damage = $mockAttacks[$attackId]['damage'];
-
-  // TODO faire le test d'accuracy
-  if(false){
-    $isDresseurAttackMissed = true;
-    $damage = 0;
-  }
-
-  // Battle
+  // Recovery battle state
   $dresseur = $_SESSION['battle']['dresseur'];
   $opponent = $_SESSION['battle']['opponent'];
-
   $dresseurPokemon = $dresseur['pokemons'][$dresseur['pokemonActif']];
   $opponentPokemon = $opponent['pokemons'][$opponent['pokemonActif']];
 
-  // Opponent take damage
-  (($opponentPokemon['hp'] - (int)$damage) < 0) ? $opponentPokemon['hp'] = 0 : $opponentPokemon['hp'] = $opponentPokemon['hp'] - (int)$damage;
+  // Dresseur's turn
+  if(isAttackMissed(MOCK_ATTACKS[$_POST['attack']]['accuracy'])){
+    $isDresseurAttackMissed = true;
+  }else{
+    $isDresseurAttackMissed = false;
+
+    // Opponent takes damage
+    $opponentPokemon['hp'] = calculatesHp($opponentPokemon['hp'], MOCK_ATTACKS[$_POST['attack']]['damage']);
+  }
 
   //TODO check if he's dead
   //if($opponentPokemon['hp'] == 0)
@@ -74,21 +69,16 @@ if(!empty($_POST['attack'])){
   //TODO check they're all dead
   //return end of battle
 
-  // Opponent attack
+  // Opponent's turn
   $opponentAttack = 3; //TODO to change
-
-  // Prepares opponent's attack
-  $isOpponentAttackMissed = false;
-  $damageOpponent = $mockAttacks[$opponentAttack]['damage'];
-
-  // TODO faire le test d'accuracy
-  if(false){
+  if(isAttackMissed(MOCK_ATTACKS[$opponentAttack]['accuracy'])){
     $isOpponentAttackMissed = true;
-    $damageOpponent = 0;
-  }
+  }else{
+    $isOpponentAttackMissed = false;
 
-  // Dresseur take damage
-  ($dresseurPokemon['hp'] - (int)$damageOpponent < 0) ? $dresseurPokemon['hp'] = 0 : $dresseurPokemon['hp'] -= (int)$damageOpponent;
+    // Dresseur takes damage
+    $dresseurPokemon['hp'] = calculatesHp($dresseurPokemon['hp'], MOCK_ATTACKS[$opponentAttack]['damage']);
+  }
 
   //TODO check if he's dead
   //if($dresseurPokemon['hp'] == 0)
@@ -120,12 +110,16 @@ if(!empty($_POST['attack'])){
 else{
   echo "Attaque introuvable";
 }
-/*
-function attack (){
 
+function isAttackMissed($accuracy){
+  return false;
 }
 
-function isDead(){
+function calculatesHp($hp, $damage){
+  return (($hp - (int)$damage) < 0) ? 0 : $hp - (int)$damage;
+}
+
+/*function isDead(){
 
 }
 
