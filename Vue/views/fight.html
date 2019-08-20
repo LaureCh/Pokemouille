@@ -17,14 +17,18 @@
   <div class="row"><p>Liste des attaques :</p></div>
   <div class="row">
     <div class="col-4">
-      <button type="button" class="btn btn-primary btn-block" onclick="attack(1);">Charge</button>
-      <button type="button" class="btn btn-primary btn-block" onclick="attack(2);">Eclair</button>
-      <button type="button" class="btn btn-primary btn-block" onclick="attack(3);">Morsure</button>
+      <button type="button" id="attack-button-1" class="btn btn-primary btn-block attack-button" onclick="attack(1);">Charge</button>
+      <button type="button" id="attack-button-2" class="btn btn-primary btn-block attack-button" onclick="attack(2);">Eclair</button>
+      <button type="button" id="attack-button-3" class="btn btn-primary btn-block attack-button" onclick="attack(3);">Morsure</button>
     </div>
   </div>
 
   <script>
     function attack(id){
+      // Disables attack's buttons
+      $('.attack-button').attr('disabled', 'disabled');
+
+      // Generates turn
       $.post(
           '../Controller/Fight.php',
           {
@@ -54,6 +58,11 @@
         if(result.dresseur.nextPokemon){
           dresseur.pokemonActif = result.dresseur.nextPokemon;
         }
+
+        setTimeout(function () {
+          // Enables attack's buttons
+          $('.attack-button').removeAttr('disabled');
+        }, 500);
       }, 500);
     }
   </script>
