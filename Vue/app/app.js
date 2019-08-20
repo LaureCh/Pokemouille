@@ -47,6 +47,10 @@ function drawPokemonInfo(pokemon, isOpponent = false) {
   ctx.fillStyle = "#0095DD";
   ctx.fill();
   ctx.closePath();
+
+  ctx.font = "14px Arial";
+  ctx.fillStyle = "#0095DD";
+  ctx.fillText(pokemon.hp+' / '+pokemon.hpMax, barPositionX-8, 60);
 }
 
 function drawPokemon(){
@@ -67,33 +71,31 @@ function attacking(isOpponent = false){
   }else{
     if(!isOpponent){
       pokemonImgXAttacking = pokemonImgX;
-      dresseur.pokemon[dresseur.pokemonActif].attacking = false;
+      dresseur.team[dresseur.pokemonActif].attacking = false;
     } else {
       pokemonImgXOpponentAttacking = pokemonImgXOpponent;
-      opponent.pokemon[opponent.pokemonActif].attacking = false;
+      opponent.team[opponent.pokemonActif].attacking = false;
     }
     move = 0;
   }
 }
 
 function draw() {
-  //console.log(dresseur);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   if(isBattleStarted){
-    drawPokemonInfo(dresseur.pokemon[dresseur.pokemonActif]);
-    drawPokemonInfo(opponent.pokemon[opponent.pokemonActif], true);
+    drawPokemonInfo(dresseur.team[dresseur.pokemonActif]);
+    drawPokemonInfo(opponent.team[opponent.pokemonActif], true);
     drawPokemon();
 
-    if(dresseur.pokemon[dresseur.pokemonActif].attacking){
+    if(dresseur.team[dresseur.pokemonActif].attacking){
       attacking();
     }
-    if(opponent.pokemon[opponent.pokemonActif].attacking){
+    if(opponent.team[opponent.pokemonActif].attacking){
       attacking(true);
     }
   }
 
   requestAnimationFrame(draw);
 }
-
 
 draw();

@@ -13,9 +13,9 @@
   <div class="row"><p>Liste des attaques :</p></div>
   <div class="row">
     <div class="col-4">
-      <button type="button" class="btn btn-primary btn-block" onclick="attack(1)">Charge</button>
-      <button type="button" class="btn btn-primary btn-block" onclick="pokemon1.takeDamage(20);pokemon2.attacking=true;">Eclair</button>
-      <button type="button" class="btn btn-primary btn-block">Morsure</button>
+      <button type="button" class="btn btn-primary btn-block" onclick="attack(1);">Charge</button>
+      <button type="button" class="btn btn-primary btn-block" onclick="attack(2);">Eclair</button>
+      <button type="button" class="btn btn-primary btn-block" onclick="attack(3);">Morsure</button>
     </div>
   </div>
 
@@ -33,11 +33,11 @@
 
     function result_attack(result){
       // Mock
-      opponent.pokemon[opponent.pokemonActif].takeDamage(result.damage);
-      dresseur.pokemon[dresseur.pokemonActif].attacking=true;
+      opponent.team[opponent.pokemonActif].takeDamage(result.damage);
+      dresseur.team[dresseur.pokemonActif].attacking=true;
       setTimeout(function () {
-        dresseur.pokemon[dresseur.pokemonActif].takeDamage(result.damage);
-        opponent.pokemon[opponent.pokemonActif].attacking=true;
+        dresseur.team[dresseur.pokemonActif].takeDamage(result.damage);
+        opponent.team[opponent.pokemonActif].attacking=true;
       }, 500);
     }
   </script>
