@@ -36,11 +36,11 @@
     }
 
     function result_attack(result){
-      // Mock
-      opponent.team[opponent.pokemonActif].takeDamage(result.damage);
+      // Handling result battle
+      opponent.team[opponent.pokemonActif].hp = result.opponent.hp;
       dresseur.team[dresseur.pokemonActif].attacking=true;
       setTimeout(function () {
-        dresseur.team[dresseur.pokemonActif].takeDamage(result.damage);
+        dresseur.team[dresseur.pokemonActif].hp = result.dresseur.hp;
         opponent.team[opponent.pokemonActif].attacking=true;
       }, 500);
     }
