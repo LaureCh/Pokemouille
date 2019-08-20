@@ -97,6 +97,10 @@ if(!empty($_POST['attack'])){
   //return end of battle
 
   // Save battle
+  $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['hp'] = $dresseurPokemon['hp'];
+  $_SESSION['battle']['opponent']['pokemons'][$opponent['pokemonActif']]['hp'] = $opponentPokemon['hp'];
+
+  //TODO switch pokemon
 
   $return = [
     'dresseur' => [
@@ -114,7 +118,7 @@ if(!empty($_POST['attack'])){
   echo json_encode($return);
 }
 else{
-    echo "Attaque introuvable";
+  echo "Attaque introuvable";
 }
 /*
 function attack (){
