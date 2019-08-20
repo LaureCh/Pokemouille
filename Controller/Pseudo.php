@@ -59,6 +59,9 @@ if (isset($_POST['name'])) {
   $return['opponent'] = (array)$opponent;
   $return['opponent']['pokemons'] = $pokemonsOpponent; // TODO replace by -> setPokemons()
 
+  $return['dresseur']['pokemonActif'] = 0;
+  $return['opponent']['pokemonActif'] = 0;
+  $_SESSION['battle'] = $return;
   echo json_encode($return);
 }
 ?>
