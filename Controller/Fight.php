@@ -1,8 +1,10 @@
 <?php
-if(!empty($_POST['attack'])){
-  $attack = $_POST['attack'];
+//include('./DBPower.php');
 
-  // Search attack on DB
+
+if(!empty($_POST['attack'])){
+  $attackId = $_POST['attack'];
+
 
   $return[] = array();
   switch ($attack) {

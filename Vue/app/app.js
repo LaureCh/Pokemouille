@@ -55,8 +55,20 @@ function drawPokemonInfo(pokemon, isOpponent = false) {
 
 function drawPokemon(){
   // Draw
+  $('#img-pokemon-dresseur').attr('src', dresseur.team[dresseur.pokemonActif].img);
+  $('#img-pokemon-opponent').attr('src', opponent.team[opponent.pokemonActif].img);
   ctx.drawImage(document.getElementById('img-pokemon-dresseur'), pokemonImgXAttacking, pokemonImgY);
   ctx.drawImage(document.getElementById('img-pokemon-opponent'), pokemonImgXOpponentAttacking, pokemonImgY);
+
+  $('#img-pokemon-dresseur-3').attr('src', dresseur.team[2].img);
+  $('#img-pokemon-opponent-3').attr('src', opponent.team[2].img);
+  ctx.drawImage(document.getElementById('img-pokemon-dresseur-3'), pokemonImgX-24, pokemonImgY+96+24);
+  ctx.drawImage(document.getElementById('img-pokemon-opponent-3'), pokemonImgXOpponent+24, pokemonImgY+96+24);
+
+  $('#img-pokemon-dresseur-2').attr('src', dresseur.team[1].img);
+  $('#img-pokemon-opponent-2').attr('src', opponent.team[1].img);
+  ctx.drawImage(document.getElementById('img-pokemon-dresseur-2'), pokemonImgX+36, pokemonImgY+96);
+  ctx.drawImage(document.getElementById('img-pokemon-opponent-2'), pokemonImgXOpponent-36, pokemonImgY+96);
 }
 
 
