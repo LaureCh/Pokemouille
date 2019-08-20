@@ -39,9 +39,21 @@
       // Handling result battle
       opponent.team[opponent.pokemonActif].hp = result.opponent.hp;
       dresseur.team[dresseur.pokemonActif].attacking=true;
+
+      // Oppenent switch if he's dead
+      if(result.opponent.nextPokemon){
+        opponent.pokemonActif = result.opponent.nextPokemon;
+      }
+
+      // Opponent attack
       setTimeout(function () {
         dresseur.team[dresseur.pokemonActif].hp = result.dresseur.hp;
         opponent.team[opponent.pokemonActif].attacking=true;
+
+        // Dresseur switch if he's dead
+        if(result.dresseur.nextPokemon){
+          dresseur.pokemonActif = result.dresseur.nextPokemon;
+        }
       }, 500);
     }
   </script>
