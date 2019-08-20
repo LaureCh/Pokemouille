@@ -7,7 +7,9 @@ include('DBPower.php');
 
 $db = new DBPower();
 $response = $db->getPokemons();
-$_SESSION['pokemonList'] = $response;
+foreach ($response as $p) {
+  $_SESSION['pokemonList'][$p['id_pokemon']] = $p;
+}
 
 if(isset($_POST['form-clear'])) {
   $step = 0;

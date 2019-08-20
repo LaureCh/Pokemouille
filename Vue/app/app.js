@@ -2,23 +2,11 @@ var canvas = document.getElementById("fight");
 var ctx = canvas.getContext("2d");
 
 // init data
-var dresseur = {};
-var opponent = {};
-dresseur.pokemon = [
-  new Pokemon(1, "Pikachu", 200, 25),
-  new Pokemon(6, "Salamèche", 240, 7),
-  new Pokemon(5, "Tortank", 400, 6),
-];
-opponent.pokemon = [
-  new Pokemon(2, "Raichu", 320, 25),
-  new Pokemon(13, "Caninos", 280, 7),
-  new Pokemon(8, "Dracaufeu", 400, 6),
-];
+var dresseur = new Dresseur();
+var opponent = new Dresseur();
 
 // Battle info
 var isBattleStarted = false;
-dresseur.pokemonActif = 0;
-opponent.pokemonActif = 0;
 
 // Bar health
 var barHealtwidth = 100;
@@ -89,6 +77,7 @@ function attacking(isOpponent = false){
 }
 
 function draw() {
+  //console.log(dresseur);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   if(isBattleStarted){
     drawPokemonInfo(dresseur.pokemon[dresseur.pokemonActif]);

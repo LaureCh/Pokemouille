@@ -28,8 +28,9 @@ if (isset($_POST['name'])) {
         $pokemons[]=(array)$pokemon;
       }
 
-      $dresseur->setPokemons($pokemons);
+      //$dresseur->setPokemons($pokemons);
       $return['dresseur'] = (array)$dresseur;
+      $return['dresseur']['pokemons'] = $pokemons; // TODO replace by -> setPokemons()
       $return['isNewPlayer'] = false;
       $_SESSION['step'] = 2;
     }
@@ -54,8 +55,9 @@ if (isset($_POST['name'])) {
     $pokemon->setImg($_SESSION['pokemonList'][$value['id_pokemon']]['front_image_url']);
     $pokemonsOpponent[]=(array)$pokemon;
   }
-  $opponent->setPokemons($pokemonsOpponent);
+  //$opponent->setPokemons($pokemonsOpponent);
   $return['opponent'] = (array)$opponent;
+  $return['opponent']['pokemons'] = $pokemonsOpponent; // TODO replace by -> setPokemons()
 
   echo json_encode($return);
 }

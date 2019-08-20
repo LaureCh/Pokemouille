@@ -9,6 +9,7 @@
   </form>
   <script>
     $('#form-pseudo').submit(function(e){
+      console.log(dresseur);
       e.preventDefault();
       $.post(
         '../Controller/Pseudo.php',
@@ -22,16 +23,16 @@
 
     function api_result_pseudo(result){
       // Handling result
-      dresseur.name = result.dresseur.username;
-      $.each(result.dresseur.Dresseurpokemons, function( index, p ) {
-        dresseur.pokemon.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp));
-      });
-
-      result.dresseur.Dresseurpokemons;
+      // Dresseur
       dresseur.isNewPlayer = result.isNewPlayer;
+      dresseur.name = result.dresseur.username;
+      $.each(result.dresseur.pokemons, function( index, p ) {
+        dresseur.team.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp));
+      });
+      // Opponent
       opponent.name = result.opponent.username;
-      $.each(result.opponent.Dresseurpokemons, function( index, p ) {
-        opponent.pokemon.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp));
+      $.each(result.opponent.pokemons, function( index, p ) {
+        opponent.team.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp));
       });
 
       // Prepares next page
@@ -44,9 +45,9 @@
         $('#select_pokemon1').attr('disabled', 'disabled');
         $('#select_pokemon2').attr('disabled', 'disabled');
         $('#select_pokemon3').attr('disabled', 'disabled');
-        $('#select_pokemon1').val(6/*dresseur.Dresseurpokemons[0]*/).attr('selected', 'selected');
-        $('#select_pokemon2').val(2/*dresseur.Dresseurpokemons[0].*/).attr('selected', 'selected');
-        $('#select_pokemon3').val(5).attr('selected', 'selected');
+        $('#select_pokemon1').val(dresseur.team[0].id).attr('selected', 'selected');
+        $('#select_pokemon2').val(dresseur.team[1].id).attr('selected', 'selected');
+        $('#select_pokemon3').val(dresseur.team[2].id).attr('selected', 'selected');
       }
 
       // Switch page
