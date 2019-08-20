@@ -112,7 +112,7 @@ else{
 }
 
 function isAttackMissed($accuracy){
-  return false;
+  return ((random_int(0, 100)) < $accuracy) ? false : true;
 }
 
 function calculatesHp($hp, $damage){
