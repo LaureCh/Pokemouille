@@ -11,8 +11,8 @@ CONST MOCK_ATTACKS = [
     'accuracy' => 80
   ],
   3 => [
-    'damage' => 30,
-    'accuracy' => 80
+    'damage' => 10,
+    'accuracy' => 100
   ],
   4 => [
     'damage' => 40,
@@ -51,6 +51,8 @@ if(!empty($_POST['attack'])){
   $opponent = $_SESSION['battle']['opponent'];
   $dresseurPokemon = $dresseur['pokemons'][$dresseur['pokemonActif']];
   $opponentPokemon = $opponent['pokemons'][$opponent['pokemonActif']];
+  $nextPokemonDresseur = null;
+  $nextPokemonOpponent = null;
 
   // Dresseur's turn
   if(isAttackMissed(MOCK_ATTACKS[$_POST['attack']]['accuracy'])){
@@ -60,17 +62,24 @@ if(!empty($_POST['attack'])){
 
     // Opponent takes damage
     $opponentPokemon['hp'] = calculatesHp($opponentPokemon['hp'], MOCK_ATTACKS[$_POST['attack']]['damage']);
+
+    // Saves HP
+    $_SESSION['battle']['opponent']['pokemons'][$opponent['pokemonActif']]['hp'] = $opponentPokemon['hp'];
   }
 
-  //TODO check if he's dead
-  //if($opponentPokemon['hp'] == 0)
-  // switch pokemon opponent
-  // add xp dresseur
-  //TODO check they're all dead
-  //return end of battle
+  // Checks if he's dead
+  if($opponentPokemon['hp'] == 0){
+    $opponent['pokemonActif'] = (int)nextPokemon((int)$opponent['pokemonActif'], true);
+    $nextPokemonOpponent = $opponent['pokemonActif'];
+    $opponentPokemon = $opponent['pokemons'][$nextPokemonOpponent];
+
+    // Saves switch pokemon
+    $_SESSION['battle']['opponent']['pokemonActif'] = $nextPokemonOpponent;
+    // add xp dresseur
+  }
 
   // Opponent's turn
-  $opponentAttack = 3; //TODO to change
+  $opponentAttack = 3; //TODO to change by a random pokemon opponent attack
   if(isAttackMissed(MOCK_ATTACKS[$opponentAttack]['accuracy'])){
     $isOpponentAttackMissed = true;
   }else{
@@ -78,31 +87,33 @@ if(!empty($_POST['attack'])){
 
     // Dresseur takes damage
     $dresseurPokemon['hp'] = calculatesHp($dresseurPokemon['hp'], MOCK_ATTACKS[$opponentAttack]['damage']);
+
+    // Saves HP
+    $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['hp'] = $dresseurPokemon['hp'];
   }
 
-  //TODO check if he's dead
-  //if($dresseurPokemon['hp'] == 0)
-  // switch pokemon dresseur
-  //TODO check they're all dead
-  //return end of battle
+  // Checks if he's dead
+  if($dresseurPokemon['hp'] == 0){
+    $dresseur['pokemonActif'] = nextPokemon((int)$dresseur['pokemonActif']);
+    $nextPokemonDresseur = $dresseur['pokemonActif'];
+    $dresseurPokemon = $dresseur['pokemons'][$nextPokemonDresseur];
 
-  // Save battle
-  $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['hp'] = $dresseurPokemon['hp'];
-  $_SESSION['battle']['opponent']['pokemons'][$opponent['pokemonActif']]['hp'] = $opponentPokemon['hp'];
-
-  //TODO switch pokemon
+    // Saves switch pokemon
+    $_SESSION['battle']['dresseur']['pokemonActif'] = $nextPokemonDresseur;
+  }
 
   $return = [
     'dresseur' => [
       'hp' => $dresseurPokemon['hp'],
       'xp' => 0,
       'isAttackMissed' => $isDresseurAttackMissed,
+      'nextPokemon' => $nextPokemonDresseur
     ],
     'opponent' => [
       'attackUsed' => $opponentAttack,
       'hp' => $opponentPokemon['hp'],
       'isAttackMissed' => $isOpponentAttackMissed,
-      'nextPokemon' => null
+      'nextPokemon' => $nextPokemonOpponent
     ]
   ];
   echo json_encode($return);
@@ -119,14 +130,12 @@ function calculatesHp($hp, $damage){
   return (($hp - (int)$damage) < 0) ? 0 : $hp - (int)$damage;
 }
 
-/*function isDead(){
-
+function nextPokemon($token, $isOpponent = false){
+  return ($token < 2) ? $token + 1 : endOfBattle($isOpponent);
 }
 
-function endOfBattle(){
-
-}*/
-
-
+function endOfBattle($isOpponent = false){
+  return ($isOpponent) ? 'Vous avez perdu.' : 'Vous avez gagné !';
+}
 
 ?>
