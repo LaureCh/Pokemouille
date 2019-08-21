@@ -60,15 +60,32 @@ function drawPokemon(){
   ctx.drawImage(document.getElementById('img-pokemon-dresseur'), pokemonImgXAttacking, pokemonImgY);
   ctx.drawImage(document.getElementById('img-pokemon-opponent'), pokemonImgXOpponentAttacking, pokemonImgY);
 
-  $('#img-pokemon-dresseur-3').attr('src', dresseur.team[2].img);
-  $('#img-pokemon-opponent-3').attr('src', opponent.team[2].img);
-  ctx.drawImage(document.getElementById('img-pokemon-dresseur-3'), pokemonImgX-24, pokemonImgY+96+24);
-  ctx.drawImage(document.getElementById('img-pokemon-opponent-3'), pokemonImgXOpponent+24, pokemonImgY+96+24);
+  if(dresseur.pokemonActif != 2){
+    $('#img-pokemon-dresseur-3').attr('src', dresseur.team[2].img);
+    ctx.drawImage(document.getElementById('img-pokemon-dresseur-3'), pokemonImgX-24, pokemonImgY+96+24);
+  }
+  if(opponent.pokemonActif != 2){
+    $('#img-pokemon-opponent-3').attr('src', opponent.team[2].img);
+    ctx.drawImage(document.getElementById('img-pokemon-opponent-3'), pokemonImgXOpponent+24, pokemonImgY+96+24);
+  }
 
-  $('#img-pokemon-dresseur-2').attr('src', dresseur.team[1].img);
-  $('#img-pokemon-opponent-2').attr('src', opponent.team[1].img);
-  ctx.drawImage(document.getElementById('img-pokemon-dresseur-2'), pokemonImgX+36, pokemonImgY+96);
-  ctx.drawImage(document.getElementById('img-pokemon-opponent-2'), pokemonImgXOpponent-36, pokemonImgY+96);
+  if(dresseur.pokemonActif != 1){
+    $('#img-pokemon-dresseur-2').attr('src', dresseur.team[1].img);
+    ctx.drawImage(document.getElementById('img-pokemon-dresseur-2'), pokemonImgX+36, pokemonImgY+96);
+  }
+  if(opponent.pokemonActif != 1){
+    $('#img-pokemon-opponent-2').attr('src', opponent.team[1].img);
+    ctx.drawImage(document.getElementById('img-pokemon-opponent-2'), pokemonImgXOpponent-36, pokemonImgY+96);
+  }
+
+  if(dresseur.pokemonActif != 0){
+    $('#img-pokemon-dresseur-1').attr('src', dresseur.team[0].img);
+    ctx.drawImage(document.getElementById('img-pokemon-dresseur-1'), pokemonImgX+12, pokemonImgY+96+64);
+  }
+  if(opponent.pokemonActif != 0){
+    $('#img-pokemon-opponent-1').attr('src', opponent.team[0].img);
+    ctx.drawImage(document.getElementById('img-pokemon-opponent-1'), pokemonImgXOpponent-12, pokemonImgY+96+64);
+  }
 }
 
 
