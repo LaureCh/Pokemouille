@@ -6,9 +6,14 @@ include('../Model/Dresseur.php');
 include('DBPower.php');
 
 $db = new DBPower();
-$response = $db->getPokemons();
-foreach ($response as $p) {
+$pokemons = $db->getPokemons();
+foreach ($pokemons as $p) {
   $_SESSION['pokemonList'][$p['id_pokemon']] = $p;
+}
+
+$attacks = $db->getAttacks();
+foreach ($attacks as $a) {
+  $_SESSION['attackList'][$a['id_attack']] = $a;
 }
 
 if(isset($_POST['form-clear'])) {

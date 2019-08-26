@@ -34,6 +34,15 @@ class DBPower
       return ($response->fetchAll());
     }
 
+    public function getAttacks()
+    {
+      $sql = "SELECT * FROM attack ORDER BY id_attack asc";
+
+      $response = $this->bdd->query($sql);
+
+      return ($response->fetchAll());
+    }
+
     public function getPokemonsByIds(array $pokemonsIds)
     {
       $pokemonsIds = implode(',', array_values($pokemonsIds));

@@ -55,13 +55,13 @@ if(!empty($_POST['attack'])){
   $nextPokemonOpponent = null;
 
   // Dresseur's turn
-  if(isAttackMissed(MOCK_ATTACKS[$_POST['attack']]['accuracy'])){
+  if(isAttackMissed($_SESSION['attackList'][$_POST['attack']]['accuracy'])){
     $isDresseurAttackMissed = true;
   }else{
     $isDresseurAttackMissed = false;
 
     // Opponent takes damage
-    $opponentPokemon['hp'] = calculatesHp($opponentPokemon['hp'], MOCK_ATTACKS[$_POST['attack']]['damage']);
+    $opponentPokemon['hp'] = calculatesHp($opponentPokemon['hp'], $_SESSION['attackList'][$_POST['attack']]['damage']);
 
     // Saves HP
     $_SESSION['battle']['opponent']['pokemons'][$opponent['pokemonActif']]['hp'] = $opponentPokemon['hp'];
@@ -80,13 +80,13 @@ if(!empty($_POST['attack'])){
 
   // Opponent's turn
   $opponentAttack = 3; //TODO to change by a random pokemon opponent attack
-  if(isAttackMissed(MOCK_ATTACKS[$opponentAttack]['accuracy'])){
+  if(isAttackMissed($_SESSION['attackList'][$opponentAttack]['accuracy'])){
     $isOpponentAttackMissed = true;
   }else{
     $isOpponentAttackMissed = false;
 
     // Dresseur takes damage
-    $dresseurPokemon['hp'] = calculatesHp($dresseurPokemon['hp'], MOCK_ATTACKS[$opponentAttack]['damage']);
+    $dresseurPokemon['hp'] = calculatesHp($dresseurPokemon['hp'], $_SESSION['attackList'][$opponentAttack]['damage']);
 
     // Saves HP
     $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['hp'] = $dresseurPokemon['hp'];
