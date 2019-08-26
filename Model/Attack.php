@@ -5,10 +5,27 @@
  */
 class Attack
 {
+    public $idAttack;
     public $name;
     public $damages;
     public $accuracy;
     public $description;
+
+    /**
+     * @return int
+     */
+    public function getIdAttack() : int
+    {
+        return $this->idAttack;
+    }
+
+    /**
+     * @param mixed $idPokemon
+     */
+    public function setIdAttack($idAttack)
+    {
+        $this->idAttack = $idAttack;
+    }
 
     /**
      * @return String

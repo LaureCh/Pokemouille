@@ -26,12 +26,12 @@
       dresseur.isNewPlayer = result.isNewPlayer;
       dresseur.name = result.dresseur.username;
       $.each(result.dresseur.pokemons, function( index, p ) {
-        dresseur.team.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp));
+        dresseur.team.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp, p.attack));
       });
       // Opponent
       opponent.name = result.opponent.username;
       $.each(result.opponent.pokemons, function( index, p ) {
-        opponent.team.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp));
+        opponent.team.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp, p.attack));
       });
 
       // Prepares next page

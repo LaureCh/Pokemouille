@@ -110,13 +110,11 @@ class DBPower
 
     }
 
-    //TODO
-    public function getAttacksFromPokemons($pokemonsIds)
+    public function getAttacksFromPokemon($pokemonId)
     {
-      $sql = "SELECT p.id_pokemon, pf.xp FROM dresseur d, pokemon_fille pf, pokemon p
-              WHERE d.id_dresseur = pf.fk_id_dresseur
-              AND pf.fk_id_pokemon = p.id_pokemon
-              AND d.username ='".$pokemonsIds."'";
+      $sql = "SELECT a.* FROM join_pokemon_attack pa, attack a
+              WHERE pa.fk_id_attack = a.id_attack
+              AND pa.fk_id_pokemon ='".$pokemonId."'";
       $response = $this->bdd->query($sql);
 
       return ($response->fetchAll());

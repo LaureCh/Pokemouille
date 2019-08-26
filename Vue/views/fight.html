@@ -12,6 +12,7 @@
       <img id="img-pokemon-opponent-3" src="" width="96" height="96">
     </div>
   </canvas>
+  <script type="text/javascript" src="../Vue/app/ressources/attack.js"></script>
   <script type="text/javascript" src="../Vue/app/ressources/pokemon.js"></script>
   <script type="text/javascript" src="../Vue/app/ressources/dresseur.js"></script>
   <script type="text/javascript" src="../Vue/app/app.js"></script>
@@ -19,9 +20,9 @@
   <div class="row"><p>Liste des attaques :</p></div>
   <div class="row">
     <div class="col-4">
-      <button type="button" id="attack-button-1" class="btn btn-primary btn-block attack-button" onclick="attack(1);">Charge</button>
-      <button type="button" id="attack-button-2" class="btn btn-primary btn-block attack-button" onclick="attack(2);">Eclair</button>
-      <button type="button" id="attack-button-3" class="btn btn-primary btn-block attack-button" onclick="attack(3);">Morsure</button>
+      <button type="button" id="attack-button-1" class="btn btn-primary btn-block attack-button" onclick="attack(0);"></button>
+      <button type="button" id="attack-button-2" class="btn btn-primary btn-block attack-button" onclick="attack(1);"></button>
+      <button type="button" id="attack-button-3" class="btn btn-primary btn-block attack-button" onclick="attack(2);"></button>
     </div>
   </div>
 
@@ -59,6 +60,11 @@
         // Dresseur switch if he's dead
         if(result.dresseur.nextPokemon){
           dresseur.pokemonActif = result.dresseur.nextPokemon;
+
+          // Switch attacks
+          $('#attack-button-1').html(dresseur.team[dresseur.pokemonActif].attacks[0].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[0].damage+')');
+          $('#attack-button-2').html(dresseur.team[dresseur.pokemonActif].attacks[1].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[1].damage+')');
+          $('#attack-button-3').html(dresseur.team[dresseur.pokemonActif].attacks[2].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[2].damage+')');
         }
 
         setTimeout(function () {

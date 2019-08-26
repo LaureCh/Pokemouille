@@ -64,10 +64,13 @@
       // TODO
       //dresseur = result.dresseur;
 
-      // Prepares next page
+      // Init Battle
       isBattleStarted=true;
       console.log(dresseur);
       console.log(opponent);
+      $('#attack-button-1').html(dresseur.team[dresseur.pokemonActif].attacks[0].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[0].damage+')');
+      $('#attack-button-2').html(dresseur.team[dresseur.pokemonActif].attacks[1].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[1].damage+')');
+      $('#attack-button-3').html(dresseur.team[dresseur.pokemonActif].attacks[2].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[2].damage+')');
 
       // Switch page
       $('#view-selectPokemon').hide();
