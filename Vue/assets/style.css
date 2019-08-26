@@ -1,1 +1,10 @@
 canvas { background: #eee; border: 2px dashed black; }
+
+#log {
+  border:1px solid #b9b9b9;
+  background-color:#f3f3f3;
+  height:120px;
+  font-size: 12px;
+  padding: 2px 6px;
+  overflow-y: scroll;
+}

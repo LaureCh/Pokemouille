@@ -1,49 +1,5 @@
 <?php
 session_start();
-
-CONST MOCK_ATTACKS = [
-  1 => [
-    'damage' => 10,
-    'accuracy' => 100
-  ],
-  2 => [
-    'damage' => 20,
-    'accuracy' => 80
-  ],
-  3 => [
-    'damage' => 10,
-    'accuracy' => 100
-  ],
-  4 => [
-    'damage' => 40,
-    'accuracy' => 80
-  ],
-  5 => [
-    'damage' => 50,
-    'accuracy' => 70
-  ],
-  6 => [
-    'damage' => 60,
-    'accuracy' => 50
-  ],
-  7 => [
-    'damage' => 70,
-    'accuracy' => 40
-  ],
-  8 => [
-    'damage' => 80,
-    'accuracy' => 20
-  ],
-  9 => [
-    'damage' => 90,
-    'accuracy' => 20
-  ],
-  10 => [
-    'damage' => 100,
-    'accuracy' => 5
-  ],
-];
-
 if(isset($_POST['attack'])){
 
   // Recovery battle state
@@ -106,10 +62,11 @@ if(isset($_POST['attack'])){
 
   $return = [
     'dresseur' => [
+      'attackUsed' => $dresseurAttack,
       'hp' => $dresseurPokemon['hp'],
-      'xp' => 0,
       'isAttackMissed' => $isDresseurAttackMissed,
-      'nextPokemon' => $nextPokemonDresseur
+      'nextPokemon' => $nextPokemonDresseur,
+      'xp' => 0,
     ],
     'opponent' => [
       'attackUsed' => $opponentAttack,

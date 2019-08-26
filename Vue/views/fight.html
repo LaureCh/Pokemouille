@@ -17,7 +17,9 @@
   <script type="text/javascript" src="../Vue/app/ressources/dresseur.js"></script>
   <script type="text/javascript" src="../Vue/app/app.js"></script>
 
-  <div class="row"><p>Liste des attaques :</p></div>
+  <h5>Log :</h5>
+  <div id="log"></div>
+  <h5>Liste des attaques :</h5>
   <div class="row">
     <div class="col-4">
       <button type="button" id="attack-button-1" class="btn btn-primary btn-block attack-button" onclick="attack(0);"></button>
@@ -46,20 +48,26 @@
       // Handling result battle
       opponent.team[opponent.pokemonActif].hp = result.opponent.hp;
       dresseur.team[dresseur.pokemonActif].attacking=true;
+      logAttack(dresseur.team[dresseur.pokemonActif].name, result.dresseur.attackUsed);
 
       // Oppenent switch if he's dead
       if(result.opponent.nextPokemon){
+        logDeath(opponent.team[opponent.pokemonActif].name);
         opponent.pokemonActif = result.opponent.nextPokemon;
+        logSwitch(opponent.team[opponent.pokemonActif].name);
       }
 
       // Opponent attack
       setTimeout(function () {
         dresseur.team[dresseur.pokemonActif].hp = result.dresseur.hp;
         opponent.team[opponent.pokemonActif].attacking=true;
+        logAttack(opponent.team[opponent.pokemonActif].name, result.opponent.attackUsed);
 
         // Dresseur switch if he's dead
         if(result.dresseur.nextPokemon){
+          logDeath(dresseur.team[dresseur.pokemonActif].name);
           dresseur.pokemonActif = result.dresseur.nextPokemon;
+          logSwitch(dresseur.team[dresseur.pokemonActif].name);
 
           // Switch attacks
           $('#attack-button-1').html(dresseur.team[dresseur.pokemonActif].attacks[0].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[0].damage+')');
@@ -72,6 +80,33 @@
           $('.attack-button').removeAttr('disabled');
         }, 500);
       }, 500);
+    }
+
+    function logAttack(pokemon, attack){
+      let str = '<span><b>'+pokemon+"</b> utilise l'attaque <b>"+attack.name+"</b> et inflige <b>"+attack.damages+"</b> dégâts.</span><br />";
+      $('#log').append(str);
+      autoScrollLog();
+    }
+
+    function logDeath(pokemon){
+      let str = "<span><b>"+pokemon+" est KO.</b></span><br />";
+      $('#log').append(str);
+      autoScrollLog();
+    }
+
+    function logSwitch(pokemon){
+      let str = "<span><b>"+pokemon+" entre dans le combat.</b></span><br />";
+      $('#log').append(str);
+      autoScrollLog();
+    }
+
+    function autoScrollLog(){
+      var height = 0;
+      $('#log span').each(function(i, value){
+          height += parseInt($(this).height());
+      });
+      height += '';
+      $('#log').animate({scrollTop: height});
     }
   </script>
 </div>
