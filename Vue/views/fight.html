@@ -1,32 +1,33 @@
 <div id="view-fight" style="display:none;">
   <h4>FIGHT !</h4>
-  <canvas id="fight" width="480" height="320">
-    <div style="display:none;">
-      <img id="img-pokemon-dresseur" src="" width="96" height="96">
-      <img id="img-pokemon-dresseur-1" src="" width="96" height="96">
-      <img id="img-pokemon-dresseur-2" src="" width="96" height="96">
-      <img id="img-pokemon-dresseur-3" src="" width="96" height="96">
-      <img id="img-pokemon-opponent" src="" width="96" height="96">
-      <img id="img-pokemon-opponent-1" src="" width="96" height="96">
-      <img id="img-pokemon-opponent-2" src="" width="96" height="96">
-      <img id="img-pokemon-opponent-3" src="" width="96" height="96">
-    </div>
-  </canvas>
-  <script type="text/javascript" src="../Vue/app/ressources/attack.js"></script>
-  <script type="text/javascript" src="../Vue/app/ressources/pokemon.js"></script>
-  <script type="text/javascript" src="../Vue/app/ressources/dresseur.js"></script>
-  <script type="text/javascript" src="../Vue/app/app.js"></script>
-
-  <h5>Log :</h5>
-  <div id="log"></div>
-  <h5>Liste des attaques :</h5>
   <div class="row">
-    <div class="col-4">
+    <div class="col col-xs-12 col-md-9 col-lg-7">
+      <canvas id="fight" width="480" height="320">
+        <div style="display:none;">
+          <img id="img-pokemon-dresseur" src="" width="96" height="96">
+          <img id="img-pokemon-dresseur-1" src="" width="96" height="96">
+          <img id="img-pokemon-dresseur-2" src="" width="96" height="96">
+          <img id="img-pokemon-dresseur-3" src="" width="96" height="96">
+          <img id="img-pokemon-opponent" src="" width="96" height="96">
+          <img id="img-pokemon-opponent-1" src="" width="96" height="96">
+          <img id="img-pokemon-opponent-2" src="" width="96" height="96">
+          <img id="img-pokemon-opponent-3" src="" width="96" height="96">
+        </div>
+      </canvas>
+      <script type="text/javascript" src="../Vue/app/ressources/attack.js"></script>
+      <script type="text/javascript" src="../Vue/app/ressources/pokemon.js"></script>
+      <script type="text/javascript" src="../Vue/app/ressources/dresseur.js"></script>
+      <script type="text/javascript" src="../Vue/app/app.js"></script>
+    </div>
+    <div class="col col-xs-12 col-md-3 col-lg-5">
+      <h5>Liste des attaques :</h5>
       <button type="button" id="attack-button-1" class="btn btn-primary btn-block attack-button" onclick="attack(0);"></button>
       <button type="button" id="attack-button-2" class="btn btn-primary btn-block attack-button" onclick="attack(1);"></button>
       <button type="button" id="attack-button-3" class="btn btn-primary btn-block attack-button" onclick="attack(2);"></button>
     </div>
   </div>
+  <h5>Informations du combat :</h5>
+  <div id="log"></div>
 
   <script>
     function attack(id){
