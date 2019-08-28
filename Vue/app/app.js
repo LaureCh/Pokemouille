@@ -51,7 +51,7 @@ function drawPokemonInfo(pokemon, isOpponent = false) {
 
   ctx.font = "14px Arial";
   ctx.fillStyle = "#0095DD";
-  ctx.fillText(pokemon.hp+' / '+pokemon.hpMax, barPositionX-8, 60);
+  ctx.fillText(pokemon.hp+' / '+pokemon.hpMax, barPositionX, 60);
 }
 
 function drawPokemon(){

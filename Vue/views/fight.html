@@ -55,7 +55,7 @@
       // Handling result battle
       opponent.team[opponent.pokemonActif].hp = result.opponent.hp;
       dresseur.team[dresseur.pokemonActif].attacking=true;
-      logAttack(dresseur.team[dresseur.pokemonActif].name, result.dresseur.attackUsed);
+      logAttack(dresseur.team[dresseur.pokemonActif].name, result.dresseur.attackUsed, result.dresseur.isAttackMissed);
 
       // Oppenent switch if he's dead
       if(result.opponent.nextPokemon){
@@ -68,7 +68,7 @@
       setTimeout(function () {
         dresseur.team[dresseur.pokemonActif].hp = result.dresseur.hp;
         opponent.team[opponent.pokemonActif].attacking=true;
-        logAttack(opponent.team[opponent.pokemonActif].name, result.opponent.attackUsed);
+        logAttack(opponent.team[opponent.pokemonActif].name, result.opponent.attackUsed, result.opponent.isAttackMissed);
 
         // Dresseur switch if he's dead
         if(result.dresseur.nextPokemon){
@@ -89,8 +89,13 @@
       }, 500);
     }
 
-    function logAttack(pokemon, attack){
-      let str = '<span><b>'+pokemon+"</b> utilise l'attaque <b>"+attack.name+"</b> et inflige <b>"+attack.damages+"</b> dégâts.</span><br />";
+    function logAttack(pokemon, attack, isAttackMissed){
+      let str = '<span><b>'+pokemon+"</b> utilise l'attaque <b>"+attack.name+"</b>, ";
+        if(isAttackMissed){
+          str+="mais rate son attaque.</span><br />";
+        }else{
+          str+="et inflige <b>"+attack.damages+"</b> dégâts.</span><br />";
+        }
       $('#log').append(str);
       autoScrollLog();
     }
