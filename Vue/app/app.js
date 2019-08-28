@@ -13,6 +13,11 @@ var barHealtwidth = 100;
 var barHealtheight = 15;
 var barHealtOffset = 10;
 
+// Bar xp
+var barXpwidth = 100;
+var barXpheight = 3;
+var barXpOffset = 10;
+
 // Pokemon img position
 var pokemonImgX = 15;
 var pokemonImgXOpponent = canvas.width-96-15;
@@ -49,9 +54,25 @@ function drawPokemonInfo(pokemon, isOpponent = false) {
   ctx.fill();
   ctx.closePath();
 
+  // Health text
   ctx.font = "14px Arial";
   ctx.fillStyle = "#0095DD";
   ctx.fillText(pokemon.hp+' / '+pokemon.hpMax, barPositionX, 60);
+
+  // Xp bar
+  if(!isOpponent){
+    var percentXp = 100-(pokemon.xp/1*100);
+    ctx.beginPath();
+    ctx.rect(barPositionX, barPositionY-barXpheight, barXpwidth, barXpheight);
+    ctx.fillStyle = "pink";
+    ctx.fill();
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.rect(barPositionX, barPositionY-barXpheight, barXpwidth-percentXp, barXpheight);
+    ctx.fillStyle = "magenta";
+    ctx.fill();
+    ctx.closePath();
+  }
 }
 
 function drawPokemon(){
