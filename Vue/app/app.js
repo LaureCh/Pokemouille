@@ -7,6 +7,8 @@ var opponent = new Dresseur();
 
 // Battle info
 var isBattleStarted = false;
+var isBattleEnded = false;
+var winner = null;
 
 // Bar health
 var barHealtwidth = 100;

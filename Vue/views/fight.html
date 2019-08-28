@@ -52,43 +52,50 @@
     }
 
     function result_attack(result){
-      // Handling result battle
-      opponent.team[opponent.pokemonActif].hp = result.opponent.hp;
-      dresseur.team[dresseur.pokemonActif].attacking=true;
-      logAttack(dresseur.team[dresseur.pokemonActif].name, result.dresseur.attackUsed, result.dresseur.isAttackMissed);
+      // Checks if battle is over
+      if(null != result.winner){
+        isBattleEnded = true;
+        winner = result.winner;
+        logWinner(result.winner);
+      }else {
+        // Handling result battle
+        opponent.team[opponent.pokemonActif].hp = result.opponent.hp;
+        dresseur.team[dresseur.pokemonActif].attacking=true;
+        logAttack(dresseur.team[dresseur.pokemonActif].name, result.dresseur.attackUsed, result.dresseur.isAttackMissed);
 
-      // Oppenent switch if he's dead
-      if(result.opponent.nextPokemon){
-        logDeath(opponent.team[opponent.pokemonActif].name);
-        dresseur.team[dresseur.pokemonActif].xp = result.dresseur.xp;
-        logEarnXP(dresseur.team[dresseur.pokemonActif].name, result.dresseur.xpEarned);
-        opponent.pokemonActif = result.opponent.nextPokemon;
-        logSwitch(opponent.team[opponent.pokemonActif].name);
-      }
-
-      // Opponent attack
-      setTimeout(function () {
-        dresseur.team[dresseur.pokemonActif].hp = result.dresseur.hp;
-        opponent.team[opponent.pokemonActif].attacking=true;
-        logAttack(opponent.team[opponent.pokemonActif].name, result.opponent.attackUsed, result.opponent.isAttackMissed);
-
-        // Dresseur switch if he's dead
-        if(result.dresseur.nextPokemon){
-          logDeath(dresseur.team[dresseur.pokemonActif].name);
-          dresseur.pokemonActif = result.dresseur.nextPokemon;
-          logSwitch(dresseur.team[dresseur.pokemonActif].name);
-
-          // Switch attacks
-          $('#attack-button-1').html(dresseur.team[dresseur.pokemonActif].attacks[0].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[0].damage+')');
-          $('#attack-button-2').html(dresseur.team[dresseur.pokemonActif].attacks[1].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[1].damage+')');
-          $('#attack-button-3').html(dresseur.team[dresseur.pokemonActif].attacks[2].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[2].damage+')');
+        // Oppenent switch if he's dead
+        if(result.opponent.nextPokemon){
+          logDeath(opponent.team[opponent.pokemonActif].name);
+          dresseur.team[dresseur.pokemonActif].xp = result.dresseur.xp;
+          logEarnXP(dresseur.team[dresseur.pokemonActif].name, result.dresseur.xpEarned);
+          opponent.pokemonActif = result.opponent.nextPokemon;
+          logSwitch(opponent.team[opponent.pokemonActif].name);
         }
 
+        // Opponent attack
         setTimeout(function () {
-          // Enables attack's buttons
-          $('.attack-button').removeAttr('disabled');
+          dresseur.team[dresseur.pokemonActif].hp = result.dresseur.hp;
+          opponent.team[opponent.pokemonActif].attacking=true;
+          logAttack(opponent.team[opponent.pokemonActif].name, result.opponent.attackUsed, result.opponent.isAttackMissed);
+
+          // Dresseur switch if he's dead
+          if(result.dresseur.nextPokemon){
+            logDeath(dresseur.team[dresseur.pokemonActif].name);
+            dresseur.pokemonActif = result.dresseur.nextPokemon;
+            logSwitch(dresseur.team[dresseur.pokemonActif].name);
+
+            // Switch attacks
+            $('#attack-button-1').html(dresseur.team[dresseur.pokemonActif].attacks[0].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[0].damage+')');
+            $('#attack-button-2').html(dresseur.team[dresseur.pokemonActif].attacks[1].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[1].damage+')');
+            $('#attack-button-3').html(dresseur.team[dresseur.pokemonActif].attacks[2].name+' ('+dresseur.team[dresseur.pokemonActif].attacks[2].damage+')');
+          }
+
+          setTimeout(function () {
+            // Enables attack's buttons
+            $('.attack-button').removeAttr('disabled');
+          }, 500);
         }, 500);
-      }, 500);
+      }
     }
 
     function logAttack(pokemon, attack, isAttackMissed){
@@ -116,6 +123,14 @@
 
     function logEarnXP(pokemon, xp){
       let str = "<span><b>"+pokemon+" gagne "+xp+"xp.</b></span><br />";
+      $('#log').append(str);
+      autoScrollLog();
+    }
+
+    function logWinner(winner){
+      let str = "<span><b>";
+      (winner == 'dresseur') ? str += "VOUS AVEZ GAGNE !!!" : str += "VOUS AVEZ PERDU !";
+      str += "</b></span><br />";
       $('#log').append(str);
       autoScrollLog();
     }
