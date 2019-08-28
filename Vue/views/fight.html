@@ -60,6 +60,8 @@
       // Oppenent switch if he's dead
       if(result.opponent.nextPokemon){
         logDeath(opponent.team[opponent.pokemonActif].name);
+        dresseur.team[dresseur.pokemonActif].xp = result.dresseur.xp;
+        logEarnXP(dresseur.team[dresseur.pokemonActif].name, result.dresseur.xpEarned);
         opponent.pokemonActif = result.opponent.nextPokemon;
         logSwitch(opponent.team[opponent.pokemonActif].name);
       }
@@ -108,6 +110,12 @@
 
     function logSwitch(pokemon){
       let str = "<span><b>"+pokemon+" entre dans le combat.</b></span><br />";
+      $('#log').append(str);
+      autoScrollLog();
+    }
+
+    function logEarnXP(pokemon, xp){
+      let str = "<span><b>"+pokemon+" gagne "+xp+"xp.</b></span><br />";
       $('#log').append(str);
       autoScrollLog();
     }

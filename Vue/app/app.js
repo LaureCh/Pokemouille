@@ -61,7 +61,7 @@ function drawPokemonInfo(pokemon, isOpponent = false) {
 
   // Xp bar
   if(!isOpponent){
-    var percentXp = 100-(pokemon.xp/1*100);
+    var percentXp = 100-(pokemon.xp/100*100);
     ctx.beginPath();
     ctx.rect(barPositionX, barPositionY-barXpheight, barXpwidth, barXpheight);
     ctx.fillStyle = "pink";
@@ -69,7 +69,7 @@ function drawPokemonInfo(pokemon, isOpponent = false) {
     ctx.closePath();
     ctx.beginPath();
     ctx.rect(barPositionX, barPositionY-barXpheight, barXpwidth-percentXp, barXpheight);
-    ctx.fillStyle = "magenta";
+    ctx.fillStyle = "red";
     ctx.fill();
     ctx.closePath();
   }

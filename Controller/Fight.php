@@ -9,6 +9,8 @@ if(isset($_POST['attack'])){
   $opponentPokemon = $opponent['pokemons'][$opponent['pokemonActif']];
   $dresseurPokemonHp = $dresseurPokemon['hp'];
   $opponentPokemonHp = $opponentPokemon['hp'];
+  $dresseurPokemonXp = $dresseurPokemon['xp'];
+  $xpEarned = 0;
   $nextPokemonDresseur = null;
   $nextPokemonOpponent = null;
 
@@ -26,7 +28,7 @@ if(isset($_POST['attack'])){
     $_SESSION['battle']['opponent']['pokemons'][$opponent['pokemonActif']]['hp'] = $opponentPokemonHp;
   }
 
-  // Checks if he's dead
+  // Checks if opponent pokemon is dead
   if($opponentPokemonHp == 0){
     $opponent['pokemonActif'] = (int)nextPokemon((int)$opponent['pokemonActif'], true);
     $nextPokemonOpponent = $opponent['pokemonActif'];
@@ -34,7 +36,12 @@ if(isset($_POST['attack'])){
 
     // Saves switch pokemon
     $_SESSION['battle']['opponent']['pokemonActif'] = $nextPokemonOpponent;
-    // add xp dresseur
+
+    // Adds XP
+    $xpEarned = rand(5, 40); // XP earned calcul
+    $dresseurPokemonXp+=$xpEarned;
+    // Saves XP
+    $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['xp'] = $dresseurPokemonXp;
   }
 
   // Opponent's turn
@@ -52,7 +59,7 @@ if(isset($_POST['attack'])){
     $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['hp'] = $dresseurPokemonHp;
   }
 
-  // Checks if he's dead
+  // Checks if dresseur pokemon is dead
   if($dresseurPokemonHp == 0){
     $dresseur['pokemonActif'] = nextPokemon((int)$dresseur['pokemonActif']);
     $nextPokemonDresseur = $dresseur['pokemonActif'];
@@ -68,7 +75,8 @@ if(isset($_POST['attack'])){
       'hp' => $dresseurPokemonHp,
       'isAttackMissed' => $isDresseurAttackMissed,
       'nextPokemon' => $nextPokemonDresseur,
-      'xp' => 0,
+      'xp' => $dresseurPokemonXp,
+      'xpEarned' => $xpEarned
     ],
     'opponent' => [
       'attackUsed' => $opponentAttack,
@@ -96,6 +104,7 @@ function nextPokemon($token, $isOpponent = false){
 }
 
 function endOfBattle($isOpponent = false){
+  // TODO SAVE XP POKEMON
   return ($isOpponent) ? 'Vous avez gagné !' : 'Vous avez perdu.';
 }
 
