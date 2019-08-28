@@ -19,6 +19,7 @@ var pokemonImgXOpponent = canvas.width-96-15;
 var pokemonImgY = 60;
 var pokemonImgXAttacking = pokemonImgX;
 var pokemonImgXOpponentAttacking = pokemonImgXOpponent;
+var spacingImgDeath = (96-64)/2;
 
 var move = 0;
 
@@ -63,28 +64,46 @@ function drawPokemon(){
   if(dresseur.pokemonActif != 2){
     $('#img-pokemon-dresseur-3').attr('src', dresseur.team[2].img);
     ctx.drawImage(document.getElementById('img-pokemon-dresseur-3'), pokemonImgX-24, pokemonImgY+96+24);
+    if(dresseur.team[2].hp == 0){
+      ctx.drawImage(document.getElementById('img-pokemon-dresseur-3-dead'), pokemonImgX-24+spacingImgDeath, pokemonImgY+96+24+spacingImgDeath);
+    }
   }
   if(opponent.pokemonActif != 2){
     $('#img-pokemon-opponent-3').attr('src', opponent.team[2].img);
     ctx.drawImage(document.getElementById('img-pokemon-opponent-3'), pokemonImgXOpponent+24, pokemonImgY+96+24);
+    if(opponent.team[2].hp == 0){
+      ctx.drawImage(document.getElementById('img-pokemon-opponent-3-dead'), pokemonImgXOpponent+24+spacingImgDeath, pokemonImgY+96+24+spacingImgDeath);
+    }
   }
 
   if(dresseur.pokemonActif != 1){
     $('#img-pokemon-dresseur-2').attr('src', dresseur.team[1].img);
     ctx.drawImage(document.getElementById('img-pokemon-dresseur-2'), pokemonImgX+36, pokemonImgY+96);
+    if(dresseur.team[1].hp == 0){
+      ctx.drawImage(document.getElementById('img-pokemon-dresseur-2-dead'), pokemonImgX+36+spacingImgDeath, pokemonImgY+96+spacingImgDeath);
+    }
   }
   if(opponent.pokemonActif != 1){
     $('#img-pokemon-opponent-2').attr('src', opponent.team[1].img);
     ctx.drawImage(document.getElementById('img-pokemon-opponent-2'), pokemonImgXOpponent-36, pokemonImgY+96);
+    if(opponent.team[1].hp == 0){
+      ctx.drawImage(document.getElementById('img-pokemon-opponent-2-dead'), pokemonImgXOpponent-36+spacingImgDeath, pokemonImgY+96+spacingImgDeath);
+    }
   }
 
   if(dresseur.pokemonActif != 0){
     $('#img-pokemon-dresseur-1').attr('src', dresseur.team[0].img);
     ctx.drawImage(document.getElementById('img-pokemon-dresseur-1'), pokemonImgX+12, pokemonImgY+96+64);
+    if(dresseur.team[0].hp == 0){
+      ctx.drawImage(document.getElementById('img-pokemon-dresseur-1-dead'), pokemonImgX+12+spacingImgDeath, pokemonImgY+96+64+spacingImgDeath);
+    }
   }
   if(opponent.pokemonActif != 0){
     $('#img-pokemon-opponent-1').attr('src', opponent.team[0].img);
     ctx.drawImage(document.getElementById('img-pokemon-opponent-1'), pokemonImgXOpponent-12, pokemonImgY+96+64);
+    if(opponent.team[0].hp == 0){
+      ctx.drawImage(document.getElementById('img-pokemon-opponent-1-dead'), pokemonImgXOpponent-12+spacingImgDeath, pokemonImgY+96+64+spacingImgDeath);
+    }
   }
 }
 

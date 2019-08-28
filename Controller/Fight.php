@@ -7,6 +7,8 @@ if(isset($_POST['attack'])){
   $opponent = $_SESSION['battle']['opponent'];
   $dresseurPokemon = $dresseur['pokemons'][$dresseur['pokemonActif']];
   $opponentPokemon = $opponent['pokemons'][$opponent['pokemonActif']];
+  $dresseurPokemonHp = $dresseurPokemon['hp'];
+  $opponentPokemonHp = $opponentPokemon['hp'];
   $nextPokemonDresseur = null;
   $nextPokemonOpponent = null;
 
@@ -18,14 +20,14 @@ if(isset($_POST['attack'])){
     $isDresseurAttackMissed = false;
 
     // Opponent takes damage
-    $opponentPokemon['hp'] = calculatesHp($opponentPokemon['hp'], $dresseurAttack['damages']);
+    $opponentPokemonHp = calculatesHp($opponentPokemonHp, $dresseurAttack['damages']);
 
     // Saves HP
-    $_SESSION['battle']['opponent']['pokemons'][$opponent['pokemonActif']]['hp'] = $opponentPokemon['hp'];
+    $_SESSION['battle']['opponent']['pokemons'][$opponent['pokemonActif']]['hp'] = $opponentPokemonHp;
   }
 
   // Checks if he's dead
-  if($opponentPokemon['hp'] == 0){
+  if($opponentPokemonHp == 0){
     $opponent['pokemonActif'] = (int)nextPokemon((int)$opponent['pokemonActif'], true);
     $nextPokemonOpponent = $opponent['pokemonActif'];
     $opponentPokemon = $opponent['pokemons'][$nextPokemonOpponent];
@@ -44,14 +46,14 @@ if(isset($_POST['attack'])){
     $isOpponentAttackMissed = false;
 
     // Dresseur takes damage
-    $dresseurPokemon['hp'] = calculatesHp($dresseurPokemon['hp'], $opponentAttack['damages']);
+    $dresseurPokemonHp = calculatesHp($dresseurPokemonHp, $opponentAttack['damages']);
 
     // Saves HP
-    $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['hp'] = $dresseurPokemon['hp'];
+    $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['hp'] = $dresseurPokemonHp;
   }
 
   // Checks if he's dead
-  if($dresseurPokemon['hp'] == 0){
+  if($dresseurPokemonHp == 0){
     $dresseur['pokemonActif'] = nextPokemon((int)$dresseur['pokemonActif']);
     $nextPokemonDresseur = $dresseur['pokemonActif'];
     $dresseurPokemon = $dresseur['pokemons'][$nextPokemonDresseur];
@@ -63,14 +65,14 @@ if(isset($_POST['attack'])){
   $return = [
     'dresseur' => [
       'attackUsed' => $dresseurAttack,
-      'hp' => $dresseurPokemon['hp'],
+      'hp' => $dresseurPokemonHp,
       'isAttackMissed' => $isDresseurAttackMissed,
       'nextPokemon' => $nextPokemonDresseur,
       'xp' => 0,
     ],
     'opponent' => [
       'attackUsed' => $opponentAttack,
-      'hp' => $opponentPokemon['hp'],
+      'hp' => $opponentPokemonHp,
       'isAttackMissed' => $isOpponentAttackMissed,
       'nextPokemon' => $nextPokemonOpponent
     ]
@@ -94,7 +96,7 @@ function nextPokemon($token, $isOpponent = false){
 }
 
 function endOfBattle($isOpponent = false){
-  return ($isOpponent) ? 'Vous avez perdu.' : 'Vous avez gagné !';
+  return ($isOpponent) ? 'Vous avez gagné !' : 'Vous avez perdu.';
 }
 
 ?>
