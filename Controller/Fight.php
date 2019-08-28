@@ -39,7 +39,7 @@ if(isset($_POST['attack'])){
 
     // Adds XP
     $xpEarned = rand(5, 40); // XP earned calcul
-    $dresseurPokemonXp+=$xpEarned;
+    $dresseurPokemonXp = calculatesXp($dresseurPokemonXp, $xpEarned);
     // Saves XP
     $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['xp'] = $dresseurPokemonXp;
   }
@@ -97,6 +97,10 @@ function isAttackMissed($accuracy){
 
 function calculatesHp($hp, $damage){
   return (($hp - (int)$damage) < 0) ? 0 : $hp - (int)$damage;
+}
+
+function calculatesXp($xp, $xpEarned){
+  return (($xp + (int)$xpEarned) > 100) ? 100 : $xp + (int)$xpEarned;
 }
 
 function nextPokemon($token, $isOpponent = false){
