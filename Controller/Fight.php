@@ -32,6 +32,7 @@ if(isset($_POST['attack'])){
   // Checks if opponent pokemon is dead
   if($opponentPokemonHp == 0){
     $opponent['pokemonActif'] = (int)nextPokemon((int)$opponent['pokemonActif']);
+    $nextPokemonOpponent = $opponent['pokemonActif'];
 
     // Adds XP
     $xpEarned = rand(5, 40); // XP earned calcul
@@ -43,50 +44,47 @@ if(isset($_POST['attack'])){
     if($opponent['pokemonActif'] == -1){
       bonusXpVictory();
       endOfBattle();
-      echo json_encode(['winner' => 'dresseur']);
-      die;
-      return;
+    }else{
+      $opponentPokemon = $opponent['pokemons'][$nextPokemonOpponent];
+
+      // Saves switch pokemon
+      $_SESSION['battle']['opponent']['pokemonActif'] = $nextPokemonOpponent;
     }
-
-    $nextPokemonOpponent = $opponent['pokemonActif'];
-    $opponentPokemon = $opponent['pokemons'][$nextPokemonOpponent];
-
-    // Saves switch pokemon
-    $_SESSION['battle']['opponent']['pokemonActif'] = $nextPokemonOpponent;
-
   }
 
-  // Opponent's turn
-  $opponentAttack = $opponentPokemon['attack'][rand(0, 2)];
-  if(isAttackMissed($opponentAttack['accuracy'])){
-    $isOpponentAttackMissed = true;
+  if($nextPokemonOpponent != -1){
+    // Opponent's turn
+    $opponentAttack = $opponentPokemon['attack'][rand(0, 2)];
+    if(isAttackMissed($opponentAttack['accuracy'])){
+      $isOpponentAttackMissed = true;
+    }else{
+      $isOpponentAttackMissed = false;
+
+      // Dresseur takes damage
+      $dresseurPokemonHp = calculatesHp($dresseurPokemonHp, $opponentAttack['damages']);
+
+      // Saves HP
+      $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['hp'] = $dresseurPokemonHp;
+    }
+
+    // Checks if dresseur pokemon is dead
+    if($dresseurPokemonHp == 0){
+      $dresseur['pokemonActif'] = (int)nextPokemon((int)$dresseur['pokemonActif']);
+      $nextPokemonDresseur = $dresseur['pokemonActif'];
+
+      // Checks if battle is ended - Opponent VICTORY
+      if($dresseur['pokemonActif'] == -1){
+        endOfBattle();
+      }else{
+          $dresseurPokemon = $dresseur['pokemons'][$nextPokemonDresseur];
+
+          // Saves switch pokemon
+          $_SESSION['battle']['dresseur']['pokemonActif'] = $nextPokemonDresseur;
+      }
+    }
   }else{
-    $isOpponentAttackMissed = false;
-
-    // Dresseur takes damage
-    $dresseurPokemonHp = calculatesHp($dresseurPokemonHp, $opponentAttack['damages']);
-
-    // Saves HP
-    $_SESSION['battle']['dresseur']['pokemons'][$dresseur['pokemonActif']]['hp'] = $dresseurPokemonHp;
-  }
-
-  // Checks if dresseur pokemon is dead
-  if($dresseurPokemonHp == 0){
-    $dresseur['pokemonActif'] = (int)nextPokemon((int)$dresseur['pokemonActif']);
-
-    // Checks if battle is ended - Opponent VICTORY
-    if($dresseur['pokemonActif'] == -1){
-      endOfBattle();
-      echo json_encode(['winner' => 'opponent']);
-      die;
-      return;
-    }
-
-    $nextPokemonDresseur = $dresseur['pokemonActif'];
-    $dresseurPokemon = $dresseur['pokemons'][$nextPokemonDresseur];
-
-    // Saves switch pokemon
-    $_SESSION['battle']['dresseur']['pokemonActif'] = $nextPokemonDresseur;
+    $opponentAttack = null;
+    $isOpponentAttackMissed = null;
   }
 
   $return = [

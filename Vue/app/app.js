@@ -9,6 +9,8 @@ var opponent = new Dresseur();
 var isBattleStarted = false;
 var isBattleEnded = false;
 var winner = null;
+var looser = null;
+var isPlayerWinner = null;
 
 // Bar health
 var barHealtwidth = 100;
@@ -79,10 +81,14 @@ function drawPokemonInfo(pokemon, isOpponent = false) {
 
 function drawPokemon(){
   // Draw
-  $('#img-pokemon-dresseur').attr('src', dresseur.team[dresseur.pokemonActif].img);
-  $('#img-pokemon-opponent').attr('src', opponent.team[opponent.pokemonActif].img);
-  ctx.drawImage(document.getElementById('img-pokemon-dresseur'), pokemonImgXAttacking, pokemonImgY);
-  ctx.drawImage(document.getElementById('img-pokemon-opponent'), pokemonImgXOpponentAttacking, pokemonImgY);
+  if(dresseur.pokemonActif != -1){
+    $('#img-pokemon-dresseur').attr('src', dresseur.team[dresseur.pokemonActif].img);
+    ctx.drawImage(document.getElementById('img-pokemon-dresseur'), pokemonImgXAttacking, pokemonImgY);
+  }
+  if(opponent.pokemonActif != -1){
+    $('#img-pokemon-opponent').attr('src', opponent.team[opponent.pokemonActif].img);
+    ctx.drawImage(document.getElementById('img-pokemon-opponent'), pokemonImgXOpponentAttacking, pokemonImgY);
+  }
 
   if(dresseur.pokemonActif != 2){
     $('#img-pokemon-dresseur-3').attr('src', dresseur.team[2].img);
@@ -151,19 +157,37 @@ function attacking(isOpponent = false){
   }
 }
 
+function drawResultBattle(){
+  positionImgResultBattleX = 0;
+  positionImgResultBattleY = 0;
+
+  if(!isPlayerWinner){
+    $('#img-result-battle').attr('src', '../Vue/assets/img/loose.png');
+  }
+  ctx.drawImage(document.getElementById('img-result-battle'), pokemonImgXAttacking, pokemonImgY);
+}
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   if(isBattleStarted){
-    drawPokemonInfo(dresseur.team[dresseur.pokemonActif]);
-    drawPokemonInfo(opponent.team[opponent.pokemonActif], true);
+    // Draws all pokemons
     drawPokemon();
+    if(dresseur.pokemonActif != -1){
+      drawPokemonInfo(dresseur.team[dresseur.pokemonActif]);
+      if(dresseur.team[dresseur.pokemonActif].attacking){
+        attacking();
+      }
+    }
+    if(opponent.pokemonActif != -1){
+      drawPokemonInfo(opponent.team[opponent.pokemonActif], true);
+      if(opponent.team[opponent.pokemonActif].attacking){
+        attacking(true);
+      }
+    }
+  }
 
-    if(dresseur.team[dresseur.pokemonActif].attacking){
-      attacking();
-    }
-    if(opponent.team[opponent.pokemonActif].attacking){
-      attacking(true);
-    }
+  if(isBattleEnded){
+    drawResultBattle();
   }
 
   requestAnimationFrame(draw);
