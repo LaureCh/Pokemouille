@@ -2,6 +2,7 @@
 
 class PokemonFille
 {
+    public $id;
     public $dresseur;
     public $pokemon;
     public $xp;
@@ -76,6 +77,22 @@ class PokemonFille
     public function setIdPokemon($idPokemon)
     {
         $this->idPokemon = $idPokemon;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() : int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 

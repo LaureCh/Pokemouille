@@ -100,7 +100,7 @@ class DBPower
 
     public function getPokemonsDresseur($username)
     {
-      $sql = "SELECT p.id_pokemon, pf.xp FROM dresseur d, pokemon_fille pf, pokemon p
+      $sql = "SELECT p.id_pokemon, pf.xp, pf.id_pokemon_fille FROM dresseur d, pokemon_fille pf, pokemon p
               WHERE d.id_dresseur = pf.fk_id_dresseur
               AND pf.fk_id_pokemon = p.id_pokemon
               AND d.username ='".$username."'";
@@ -118,6 +118,20 @@ class DBPower
       $response = $this->bdd->query($sql);
 
       return ($response->fetchAll());
+
+    }
+
+    public function updateXp($pokemons){
+      foreach ($pokemons as $p) {
+        try{
+            $sql = "UPDATE `pokemon_fille` SET `xp` = '".$p['xp']."' WHERE `pokemon_fille`.`id_pokemon_fille` = ".$p['id'];
+
+            $this->bdd->query($sql);
+        }
+        catch(Exception $e){
+            echo "Error:".$e->getMessage()." PokemonFilleId:".$p['id']." Xp:".$p['xp'];
+        }
+      }
 
     }
 }

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('DBPower.php');
 if(isset($_POST['attack'])){
 
   // Recovery battle state
@@ -131,7 +132,8 @@ function bonusXpVictory(){
 }
 
 function endOfBattle(){
-  // TODO SAVE XP POKEMON ON DB
+  $db = new DBPower();
+  $response = $db->updateXp($_SESSION['battle']['dresseur']['pokemons']);
 }
 
 ?>

@@ -36,6 +36,7 @@ if (isset($_POST['name'])) {
     }else{
       foreach ($response as $value) {
         $pokemon = new PokemonFilleInGame();
+        $pokemon->setId((int)$value["id_pokemon_fille"]);
         $pokemon->setIdPokemon((int)$value["id_pokemon"]);
         $pokemon->setXp((int)$value["xp"]);
         $pokemon->setName($_SESSION['pokemonList'][$value['id_pokemon']]['french_name']);
@@ -52,7 +53,7 @@ if (isset($_POST['name'])) {
 
       //$dresseur->setPokemons($pokemons);
       $return['dresseur'] = (array)$dresseur;
-      $return['dresseur']['pokemons'] = $pokemons; // TODO replace by -> setPokemons()
+      $return['dresseur']['pokemons'] = $pokemons;
       $return['isNewPlayer'] = false;
       $_SESSION['step'] = 2;
     }
@@ -83,9 +84,8 @@ if (isset($_POST['name'])) {
 
     $pokemonsOpponent[]=$pokemon;
   }
-  //$opponent->setPokemons($pokemonsOpponent);
   $return['opponent'] = (array)$opponent;
-  $return['opponent']['pokemons'] = $pokemonsOpponent; // TODO replace by -> setPokemons()
+  $return['opponent']['pokemons'] = $pokemonsOpponent;
 
   $return['dresseur']['pokemonActif'] = 0;
   $return['opponent']['pokemonActif'] = 0;
