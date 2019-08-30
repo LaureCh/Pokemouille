@@ -25,17 +25,33 @@ var barXpOffset = 10;
 // Pokemon img position
 var pokemonImgX = 15;
 var pokemonImgXOpponent = canvas.width-96-15;
-var pokemonImgY = 60;
+var pokemonImgY = 80;
 var pokemonImgXAttacking = pokemonImgX;
 var pokemonImgXOpponentAttacking = pokemonImgXOpponent;
 var spacingImgDeath = (96-64)/2;
 
 var move = 0;
 
+function drawDresseurName(dresseurName, isOpponent = false){
+  // Position
+  var positionNameDresseurX = 10;
+  ctx.textAlign = "left";
+  if(isOpponent){
+    var positionNameDresseurX = canvas.width-10;
+    ctx.textAlign = "right";
+  }
+
+  // Pokemon name
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "orange";
+  ctx.fillText(dresseurName.toUpperCase(), positionNameDresseurX, 20);
+  ctx.textAlign = "left";
+}
+
 function drawPokemonInfo(pokemon, isOpponent = false) {
   // Position
   var barPositionX = barHealtOffset;
-  var barPositionY = barHealtOffset+20;
+  var barPositionY = barHealtOffset+40;
   if(isOpponent){
     var barPositionX = canvas.width-barHealtOffset-barHealtwidth;
   }
@@ -43,7 +59,7 @@ function drawPokemonInfo(pokemon, isOpponent = false) {
   // Pokemon name
   ctx.font = "16px Arial";
   ctx.fillStyle = "#0095DD";
-  ctx.fillText(pokemon.name, barPositionX-8, 20);
+  ctx.fillText(pokemon.name, barPositionX-8, 40);
 
   // Health bar
   var percent = 100-(pokemon.hp/pokemon.hpMax*100)
@@ -61,7 +77,7 @@ function drawPokemonInfo(pokemon, isOpponent = false) {
   // Health text
   ctx.font = "14px Arial";
   ctx.fillStyle = "#0095DD";
-  ctx.fillText(pokemon.hp+' / '+pokemon.hpMax, barPositionX, 60);
+  ctx.fillText(pokemon.hp+' / '+pokemon.hpMax, barPositionX, 80);
 
   // Xp bar
   if(!isOpponent){
@@ -170,6 +186,9 @@ function drawResultBattle(){
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   if(isBattleStarted){
+    drawDresseurName(dresseur.name);
+    drawDresseurName(opponent.name, true);
+
     // Draws all pokemons
     drawPokemon();
     if(dresseur.pokemonActif != -1){
