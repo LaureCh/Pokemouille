@@ -49,14 +49,18 @@
   <script>
     $('#form-select').submit(function(e){
       e.preventDefault();
-      $.post(
-        '../Controller/SelectPokemon.php',
-        {
-          id : [$("#select_pokemon1").val(), $("#select_pokemon2").val(), $("#select_pokemon3").val()]
-        },
-        api_result_select,
-        'JSON'
-      );
+      if(dresseur.isNewPlayer){
+        $.post(
+          '../Controller/SelectPokemon.php',
+          {
+            id : [$("#select_pokemon1").val(), $("#select_pokemon2").val(), $("#select_pokemon3").val()]
+          },
+          api_result_select,
+          'JSON'
+        );
+      }else{
+        start_battle();
+      }
     });
 
     function api_result_select(result){
@@ -64,7 +68,10 @@
       $.each(result.dresseur.pokemons, function( index, p ) {
         dresseur.team.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp, p.attack));
       });
+      start_battle();
+    }
 
+    function start_battle(){
       // Init Battle
       isBattleStarted=true;
       console.log(dresseur);

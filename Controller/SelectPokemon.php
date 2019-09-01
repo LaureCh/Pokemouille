@@ -22,7 +22,7 @@ function completeAttacks($attacks){
   return $a;
 }
 
-if(isset($_POST['id'])) {
+if(isset($_POST['id']) && $_SESSION['battle']['isNewPlayer']) {
   // create new dresseur
   $db = new DBPower();
   $dresseurId = $db->createDresseur($_SESSION['battle']['dresseur']['username'], $_POST['id']);
