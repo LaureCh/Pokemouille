@@ -126,10 +126,18 @@ function nextPokemon($token){
 }
 
 function bonusXpVictory(){
-  // TODO GIVE BONUS XP FOR VICTORY
+  foreach ($_SESSION['battle']['dresseur']['pokemons'] as $i => $p) {
+      $_SESSION['battle']['dresseur']['pokemons'][$i]['xp'] += 20;
+  }
 }
 
 function endOfBattle(){
+  foreach ($_SESSION['battle']['dresseur']['pokemons'] as $i => $p) {
+    if($p['xp'] == 100){
+      // TODO evolution(s)
+      $_SESSION['battle']['dresseur']['pokemons'][$i]['xp'] = 0;
+    }
+  }
   $db = new DBPower();
   $response = $db->updateXp($_SESSION['battle']['dresseur']['pokemons']);
 }
