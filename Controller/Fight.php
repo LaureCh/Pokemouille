@@ -127,7 +127,7 @@ function nextPokemon($token){
 
 function bonusXpVictory(){
   foreach ($_SESSION['battle']['dresseur']['pokemons'] as $i => $p) {
-      $_SESSION['battle']['dresseur']['pokemons'][$i]['xp'] += 20;
+      $_SESSION['battle']['dresseur']['pokemons'][$i]['xp'] = calculatesXp($_SESSION['battle']['dresseur']['pokemons'][$i]['xp'], 20);
   }
 }
 
