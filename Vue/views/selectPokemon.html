@@ -52,7 +52,7 @@
       $.post(
         '../Controller/SelectPokemon.php',
         {
-          id : [$("#pokemon1").val(), $("#pokemon2").val(), $("#pokemon3").val()]
+          id : [$("#select_pokemon1").val(), $("#select_pokemon2").val(), $("#select_pokemon3").val()]
         },
         api_result_select,
         'JSON'
@@ -61,8 +61,9 @@
 
     function api_result_select(result){
       // Handling result
-      // TODO
-      //dresseur = result.dresseur;
+      $.each(result.dresseur.pokemons, function( index, p ) {
+        dresseur.team.push(new Pokemon(p.idPokemon, p.name, p.hp, p.img, p.xp, p.attack));
+      });
 
       // Init Battle
       isBattleStarted=true;

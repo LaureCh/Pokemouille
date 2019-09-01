@@ -8,6 +8,7 @@ class Dresseur
     public $username;
     public $password;
     private $pokemons;
+    public $pokemonActif;
 
     /**
      * Dresseur constructor.
@@ -15,6 +16,7 @@ class Dresseur
     public function __construct(String $username)
     {
         $this->username = $username;
+        $this->pokemonActif = 0;
     }
 
     /**
@@ -61,6 +63,22 @@ class Dresseur
     public function getPokemons() : array
     {
         return $this->pokemons;
+    }
+
+    /**
+     * @return String
+     */
+    public function getPokemonActif() : String
+    {
+      return $this->pokemonActif;
+    }
+
+    /**
+     * @param string $pokemonActif
+     */
+    public function setPokemonActif(string $pokemonActif): void
+    {
+        $this->pokemonActif = $pokemonActif;
     }
 }
 ?>

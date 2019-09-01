@@ -134,5 +134,22 @@ class DBPower
       }
 
     }
+
+    public function createDresseur($name, $pokemonsIds){
+      // create dresseur
+      $sql = "INSERT INTO Dresseur(username) VALUES('".$name."')";
+      $this->bdd->query($sql);
+
+      $sql = "SELECT LAST_INSERT_ID()";
+      $lastInsertId = $this->bdd->query($sql)->fetch()['LAST_INSERT_ID()'];
+
+      // create dresseur's pokemons
+      foreach ($pokemonsIds as $id){
+        $sql = "INSERT INTO Pokemon_fille(fk_id_pokemon, fk_id_dresseur) VALUES('".$id."', '".$lastInsertId."')";
+        $this->bdd->query($sql);
+      }
+
+      return $lastInsertId;
+    }
 }
 ?>
